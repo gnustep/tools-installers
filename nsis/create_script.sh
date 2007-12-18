@@ -32,9 +32,11 @@ GSTEP_FILES="gnustep-make ffcall gnustep-objc gnustep-base gnustep-gui gnustep-b
 # Pick the package we are making
 PACKAGES=$SYSTEM_FILES
 INSTALLER="gnustep-system"
+ARGS=
 if [ x$1 = xextra -o x$1 = xdepend -o x$1 = xdepends ];  then
   PACKAGES=$EXTRA_FILES
   INSTALLER="gnustep-depend"
+  ARGS=-d
 elif [ x$1 = xgstep -o x$1 = xcore ]; then
   PACKAGES=$GSTEP_FILES
   INSTALLER="gnustep-core"
@@ -44,14 +46,13 @@ OUTPATH=$INSTALLER-sections.nsi
 TEMPFILE=temp-nsi
 
 # Create the file lists
-args=
 for package in $PACKAGES; do
   if test $package = -m; then
-    args=-m
+    args="$ARGS -m"
     continue;
   fi
   ./file_lists.sh $args $package
-  args=
+  args=$ARGS
 done
 
 

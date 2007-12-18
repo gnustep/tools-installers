@@ -35,6 +35,8 @@ PACKAGEDIR=$SRCDIR/packages/
 INSTALLDIR="C:\\GNUstep\\msys\\1.0.11"
 # Extra install dir to add on to standard INSTALLDIR
 EXTRADIR=
+# Remove all the doc files
+REMOVEDOC=no
 
 while test $# != 0
 do
@@ -42,6 +44,9 @@ do
   case $1 in
     --mingw | -m)
       EXTRADIR="\\mingw";;
+    --nodoc | -d)
+      REMOVEDOC=yes;;
+
     *)
       break;;
   esac
@@ -99,6 +104,8 @@ for file in $ALLFILES; do
 
     # Print out all the install files
     echo "  ; Files from `basename $fullname`" > $outfile
+    echo "  ; Files from `basename $fullname`" >> files-not-added.txt
+    REMOVEIT=no
     for i in $files; do
       # Hackish way to find if the file has a / suffix
       # in which case it is a dir we do not want to print
@@ -108,10 +115,15 @@ for file in $ALLFILES; do
       else
         newdir=`dirname $i`
       fi
+      echo $i | grep -q doc
+      if [ $? = 0 -a $REMOVEDOC = yes ]; then 
+        REMOVEIT=yes
+	echo "  $i" >> files-not-added.txt
+      fi
       if [ $cdir != $newdir ]; then
         cdir=$newdir
         windir=`echo $newdir | tr '/' '\\'`
-	if [ $windir != "." ]; then
+	if [ $windir != "." -a $REMOVEIT = no ]; then
 	  RMDIR_LIST="$INSTDIR$EXTRADIR\\$windir $RMDIR_LIST"
 	fi
         printdir=YES
@@ -119,7 +131,7 @@ for file in $ALLFILES; do
 	  continue
 	fi
       fi
-      if [ $printdir = YES ]; then
+      if [ $printdir = YES -a $REMOVEIT = no ]; then
 	if [ $cdir = "." ]; then
           echo "  SetOutPath \"\$INSTDIR$EXTRADIR\"" >> $outfile
 	else
@@ -128,8 +140,11 @@ for file in $ALLFILES; do
 	printdir=NO
       fi
       ii=`echo $i | tr '/' '\'`
-      echo "  File \"$INSTALLDIR$EXTRADIR\\$ii\"" >> $outfile
-      DELETE_LIST="$INSTDIR$EXTRADIR\\$ii $DELETE_LIST"
+      if [ $REMOVEIT = no ]; then
+        echo "  File \"$INSTALLDIR$EXTRADIR\\$ii\"" >> $outfile
+        DELETE_LIST="$INSTDIR$EXTRADIR\\$ii $DELETE_LIST"
+      fi
+      REMOVEIT=no
     done
 
     # Now print out all the files in the uninstall (delete) list
