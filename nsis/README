@@ -23,15 +23,15 @@ mkdir -p $HOME/nsis/packages/libxml2-2.6.30
 make DESTDIR=$HOME/nsis/packages/libxml2-2.6.30 install
 
 3. Use the create_script.sh script to generate the file lists needed for the
-installer. Use the argument "system", "depend", or "core" to generate the 
+installer. Use the argument "system", or "core" to generate the 
 lists for the indicated intaller.
 
 4. Replace the file lists in the current installer scripts with the new
-file lists.  You need to heavily edit the RMDir lines to make sure dirs
+file lists.  You need to edit the RMDir lines to make sure dirs
 are being deleted in the proper order and not multiple times.
 
 4. Run the NSIS installer compiler to generate the package. You can get it
-from nsis.sourceforge.net (There are even version for Unix, but they require
+from nsis.sourceforge.net (There is even a version for Unix, but they require
 a cross compiler and don't support plugins).
 
 Installer Packages
@@ -47,7 +47,7 @@ gcc-core
 gcc-objc
 gcc-g++
 
-GNUstep Depend:
+GNUstep Depend (Now part of System):
 ---------------
 gettext
 libiconv

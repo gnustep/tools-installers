@@ -25,19 +25,14 @@
 #
 
 # Packages. The -m before the name means it goes in the mingw subdir
-SYSTEM_FILES="msysCORE -m binutils -m mingw-runtime -m w32api -m gcc-core -m gcc-objc -m gcc-g++"
-EXTRA_FILES="-m gettext -m libiconv -m zlib -m libxml -m jpeg -m libpng -m tiff"
+SYSTEM_FILES="msysCORE -m binutils -m mingw-runtime -m w32api -m gettext -m libiconv -m zlib -m libxml -m jpeg -m libpng -m tiff -m gcc-core -m gcc-objc -m gcc-g++"
 GSTEP_FILES="gnustep-make ffcall gnustep-objc gnustep-base gnustep-gui gnustep-back"
 
 # Pick the package we are making
 PACKAGES=$SYSTEM_FILES
 INSTALLER="gnustep-system"
 ARGS=
-if [ x$1 = xextra -o x$1 = xdepend -o x$1 = xdepends ];  then
-  PACKAGES=$EXTRA_FILES
-  INSTALLER="gnustep-depend"
-  ARGS=-d
-elif [ x$1 = xgstep -o x$1 = xcore ]; then
+if [ x$1 = xgstep -o x$1 = xcore ]; then
   PACKAGES=$GSTEP_FILES
   INSTALLER="gnustep-core"
 fi
@@ -55,7 +50,9 @@ for package in $PACKAGES; do
   args=$ARGS
 done
 
-
+#
+# Section list for files
+#
 let section=1
 rm -f $TEMPFILE
 echo " " > $TEMPFILE
@@ -72,6 +69,9 @@ for package in $PACKAGES; do
   let section=$section+1
 done
 
+#
+# Delete list
+#
 echo "" >> $TEMPFILE
 echo "Section Uninstall" >> $TEMPFILE
 for package in $PACKAGES; do
@@ -82,8 +82,16 @@ for package in $PACKAGES; do
   mv $TEMPFILE-1 $TEMPFILE
   echo "" >> $TEMPFILE
 done
+
+#
+# RMDir list
+#
+# Reverse this first:
+sort_list=`echo $PACKAGES | tr ' ' '\n' | sed '1!G;h;$!d'`
+REV_PACKAGES=`echo $sort_list`
+
 echo "" >> $TEMPFILE
-for package in $PACKAGES; do
+for package in $REV_PACKAGES; do
   if test $package = -m; then
     continue;
   fi

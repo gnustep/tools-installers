@@ -32,11 +32,13 @@ SRCDIR=`cd $SRCDIR && pwd`
 PACKAGEDIR=$SRCDIR/packages/
 # Location where the MinGW packages are installed (for when we
 # compile the nsis script).
-INSTALLDIR="C:\\GNUstep\\msys\\1.0.11"
+INSTALLDIR="C:\\GNUstep-devel\\1.0.11"
 # Extra install dir to add on to standard INSTALLDIR
 EXTRADIR=
 # Remove all the doc files
 REMOVEDOC=no
+# User install only (dlls only)
+USER=no
 
 while test $# != 0
 do
@@ -46,7 +48,8 @@ do
       EXTRADIR="\\mingw";;
     --nodoc | -d)
       REMOVEDOC=yes;;
-
+    --user | -u)
+      USER=yes;;
     *)
       break;;
   esac
