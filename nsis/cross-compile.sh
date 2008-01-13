@@ -1,8 +1,13 @@
 #
+# Semi-automatic, useful reminder for how to cross compile packages
 # Work in progress. Need to clean this up and make it useful...
 #
-# Semi-automatic, useful reminder for how to cross compile packages
-#
+# Usage:
+# ./cross-compile.sh [gnustep] [all | ffcall | objc | make | base | gui | back]
+#   gnustep - compile only gnustep pacakges (otherwise only dependancies)
+#   all - compile all gnustep (otherwise compile all except ffcall, objc)
+#   xxx - compile specific package
+
 # Location of sources, packages, etc.  Change to suit
 HOME_DIR=$HOME/Source/nsis
 PACKAGE_DIR=$HOME/Source/nsis/packages
@@ -43,7 +48,7 @@ make_package()
 # Dependancies
 #
 if [ x$1 != xgnustep ]; then
-  packages="gettext libiconv libxml zlib jpeg tiff freetype"
+  packages="gettext libiconv libxml zlib jpeg tiff"
   if [ x$1 != x ]; then
     packages=$*
   fi
@@ -57,8 +62,8 @@ if [ x$1 != xgnustep ]; then
 fi
 
 # Notes:
-# libxml - need to change the xml2-config file so the path is correct.
-# libart - can't be cross-compiled
+# libxml,libpng - need to change the XXX-config file so the path 
+#    prefix is correct.
 
 #
 # GNUstep
@@ -105,7 +110,7 @@ fi
   . /GNUstep/System/Library/Makefiles/GNUstep-reset.sh
   . /GNUstep/System/Library/Makefiles/GNUstep.sh
   
-if [ x$2 = xall ]; then
+if [ x$2 = xall -o x$2 = xffcall ]; then
 #
 # ffcall
 #
@@ -130,10 +135,12 @@ if [ x$2 = xall ]; then
   mkdir -p $PACKAGE_DIR/ffcall
   rm -rf $PACKAGE_DIR/ffcall
   make DESTDIR=$PACKAGE_DIR/ffcall install
+fi
 
 #
 # GNUstep objc
 #
+if [ x$2 = xall -o x$2 = xobjc ]; then
   echo "========= Making objc  ========="
   cd $SOURCES_DIR/gstep
   tar -zxf /Local/Software/gstep/startup/sources/gnustep-objc-*tar.gz

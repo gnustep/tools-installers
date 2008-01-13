@@ -4,7 +4,7 @@
 # Run this on the Windows machine in a mingw Shell
 #
 
-PACKAGES="gnustep-make gnustep-base gnustep-gui gustep-back"
+PACKAGES="gnustep-make gnustep-base gnustep-gui gnustep-back"
 
 cd packages
 for p in $PACKAGES; do

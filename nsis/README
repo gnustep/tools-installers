@@ -9,8 +9,9 @@ something from scratch.
 
 Here's a basic overview of what needs to be done currently:
 
-1. Download compiled packags from www.mingw.org and put them in the
+1. Download compiled packages from www.mingw.org and put them in the
 "packages" directory (still tar'd and compressed). Install them as well
+(on Windows and cross-compile location). See below for a list
 
 2. Download source packages from wherever they are located and put them
 in the "sources" directory. Compile them on Windows or cross-compile them.
@@ -18,9 +19,18 @@ Install them. Also copy/tar all the files to a separate install directory
 for each package in the "pakages" directory. For instantance, you might
 put the libxml package in the packages directory like this:
 
-cd sources/libxml2-2.6.30
-mkdir -p $HOME/nsis/packages/libxml2-2.6.30
-make DESTDIR=$HOME/nsis/packages/libxml2-2.6.30 install
+CURRENT=`pwd`
+cd $CURRENT/sources/libxml2-2.6.30
+mkdir -p $CURRENT/packages/libxml2
+make DESTDIR=$CURRENT/packages/libxml2 install
+
+For my particular setup, I use the following scripts to cross-compile all
+the packages and create the package lists in the packages directory.  I
+also use the second script to actually install the packages on the
+Windows machine.
+
+cross-compile.sh
+install-local.sh
 
 3. Use the create_script.sh script to generate the file lists needed for the
 installer. Use the argument "system", or "core" to generate the 
@@ -30,7 +40,7 @@ lists for the indicated intaller.
 file lists.  You need to edit the RMDir lines to make sure dirs
 are being deleted in the proper order and not multiple times.
 
-4. Run the NSIS installer compiler to generate the package. You can get it
+5. Run the NSIS installer compiler to generate the package. You can get it
 from nsis.sourceforge.net (There is even a version for Unix, but they require
 a cross compiler and don't support plugins).
 
@@ -60,8 +70,8 @@ tiff
 GNUstep Core:
 ------------
 gnustep-make
-gnustep-objc
 ffcall
+gnustep-objc
 gnustep-base
 gnustep-gui
 gnustep-back
