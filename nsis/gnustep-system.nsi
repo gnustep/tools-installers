@@ -1,4 +1,3 @@
-; gnustep-system installer script
 ; Written: Adam Fedor <fedor@gnu.org>
 ; Date: Dec 2007
 ;
@@ -10,7 +9,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GNUstep Windows System"
-!define PRODUCT_VERSION "0.9.1"
+!define PRODUCT_VERSION "0.9.2"
 !define PRODUCT_PUBLISHER "GNUstep"
 !define PRODUCT_WEB_SITE "http://www.gnustep.org"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GNUstep"
@@ -72,8 +71,12 @@ InstallDir "C:\GNUstep"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show
 ShowUnInstDetails show
+; Developer install includes all optional sections.
+; NOTE: Not sure we're ready to give this option or even if it matters
+;InstType "User"
+;InstType "Developer"
  
-Section "msysCORE" SEC01
+Section "CORE" SEC01
   SectionIn RO
   SetOverwrite try
   SetOutPath "$INSTDIR"
@@ -187,6 +190,30 @@ Section "msysCORE" SEC01
   File "C:\GNUstep-devel\1.0.11\postinstall\pi.bat"
   File "C:\GNUstep-devel\1.0.11\postinstall\pi.sh"
 
+  ; Add DLLs from other packages
+  ; Files from mingw-runtime-3.13.tar.bz2
+  SetOutPath "$INSTDIR\mingw\bin"
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\mingwm10.dll"
+  ; Files from gettext
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\libasprintf-0.dll"
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\libgettextlib-0-16-1.dll"
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\libgettextpo-0.dll"
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\libgettextsrc-0-16-1.dll"
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\libintl-8.dll"
+  ; Files from libiconv
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\libcharset-1.dll"
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\libiconv-2.dll"
+  ; Files from zlib
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\zlib1.dll"
+  ; Files from libxml
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\libxml2-2.dll"
+  ; Files from libpng
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\libpng-3.dll"
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\libpng12-0.dll"
+  ; Files from tiff
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\libtiff-3.dll"
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\libtiffxx-3.dll"
+
   ; Update the fstab entry for the our install location
   ; Make sure the path has the proper slahses
   Push $INSTDIR
@@ -290,8 +317,8 @@ Section "mingw-runtime" SEC03
   SectionIn RO
   SetOverwrite try
   ; Files from mingw-runtime-3.13.tar.bz2
-  SetOutPath "$INSTDIR\mingw\bin"
-  File "C:\GNUstep-devel\1.0.11\mingw\bin\mingwm10.dll"
+  ;SetOutPath "$INSTDIR\mingw\bin"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\bin\mingwm10.dll"
   SetOutPath "$INSTDIR\mingw\doc\mingw-runtime"
   File "C:\GNUstep-devel\1.0.11\mingw\doc\mingw-runtime\CONTRIBUTORS"
   File "C:\GNUstep-devel\1.0.11\mingw\doc\mingw-runtime\DISCLAIMER"
@@ -863,7 +890,8 @@ SectionEnd
 ;-------------------------------------------------------------------
 ; Extra Library dependancies
 ;--------------------------------------------------------------------
- 
+SectionGroup "Libraries" LIB_SEC
+
 Section "gettext" SEC05
   SectionIn RO
   SetOverwrite try
@@ -874,11 +902,11 @@ Section "gettext" SEC05
   File "C:\GNUstep-devel\1.0.11\mingw\bin\gettext.exe"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\gettext.sh"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\gettextize"
-  File "C:\GNUstep-devel\1.0.11\mingw\bin\libasprintf-0.dll"
-  File "C:\GNUstep-devel\1.0.11\mingw\bin\libgettextlib-0-16-1.dll"
-  File "C:\GNUstep-devel\1.0.11\mingw\bin\libgettextpo-0.dll"
-  File "C:\GNUstep-devel\1.0.11\mingw\bin\libgettextsrc-0-16-1.dll"
-  File "C:\GNUstep-devel\1.0.11\mingw\bin\libintl-8.dll"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\bin\libasprintf-0.dll"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\bin\libgettextlib-0-16-1.dll"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\bin\libgettextpo-0.dll"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\bin\libgettextsrc-0-16-1.dll"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\bin\libintl-8.dll"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\msgattrib.exe"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\msgcat.exe"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\msgcmp.exe"
@@ -1202,8 +1230,8 @@ Section "libiconv" SEC06
   ; Files from libiconv
   SetOutPath "$INSTDIR\mingw\bin"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\iconv.exe"
-  File "C:\GNUstep-devel\1.0.11\mingw\bin\libcharset-1.dll"
-  File "C:\GNUstep-devel\1.0.11\mingw\bin\libiconv-2.dll"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\bin\libcharset-1.dll"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\bin\libiconv-2.dll"
   SetOutPath "$INSTDIR\mingw\include"
   File "C:\GNUstep-devel\1.0.11\mingw\include\iconv.h"
   File "C:\GNUstep-devel\1.0.11\mingw\include\libcharset.h"
@@ -1228,8 +1256,8 @@ Section "zlib" SEC07
   SectionIn RO
   SetOverwrite try
   ; Files from zlib
-  SetOutPath "$INSTDIR\mingw\bin"
-  File "C:\GNUstep-devel\1.0.11\mingw\bin\zlib1.dll"
+  ;SetOutPath "$INSTDIR\mingw\bin"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\bin\zlib1.dll"
   SetOutPath "$INSTDIR\mingw\include"
   File "C:\GNUstep-devel\1.0.11\mingw\include\zconf.h"
   File "C:\GNUstep-devel\1.0.11\mingw\include\zlib.h"
@@ -1246,7 +1274,7 @@ Section "libxml" SEC08
   SetOverwrite try
   ; Files from libxml
   SetOutPath "$INSTDIR\mingw\bin"
-  File "C:\GNUstep-devel\1.0.11\mingw\bin\libxml2-2.dll"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\bin\libxml2-2.dll"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\xml2-config"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\xmlcatalog.exe"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\xmllint.exe"
@@ -1346,9 +1374,9 @@ Section "libpng" SEC10
   SetOverwrite try
   ; Files from libpng
   SetOutPath "$INSTDIR\mingw\bin"
-  File "C:\GNUstep-devel\1.0.11\mingw\bin\libpng-3.dll"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\bin\libpng-3.dll"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\libpng-config"
-  File "C:\GNUstep-devel\1.0.11\mingw\bin\libpng12-0.dll"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\bin\libpng12-0.dll"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\libpng12-config"
   SetOutPath "$INSTDIR\mingw\include\libpng12"
   File "C:\GNUstep-devel\1.0.11\mingw\include\libpng12\png.h"
@@ -1382,8 +1410,8 @@ Section "tiff" SEC11
   File "C:\GNUstep-devel\1.0.11\mingw\bin\fax2ps.exe"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\fax2tiff.exe"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\gif2tiff.exe"
-  File "C:\GNUstep-devel\1.0.11\mingw\bin\libtiff-3.dll"
-  File "C:\GNUstep-devel\1.0.11\mingw\bin\libtiffxx-3.dll"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\bin\libtiff-3.dll"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\bin\libtiffxx-3.dll"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\pal2rgb.exe"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\ppm2tiff.exe"
   File "C:\GNUstep-devel\1.0.11\mingw\bin\ras2tiff.exe"
@@ -1481,12 +1509,12 @@ Section "tiff" SEC11
   File "C:\GNUstep-devel\1.0.11\mingw\man\man3\TIFFWriteScanline.3tiff"
   File "C:\GNUstep-devel\1.0.11\mingw\man\man3\TIFFWriteTile.3tiff"
 SectionEnd
-
-
+SectionGroupEnd
 
 ;-------------------------------------------------------------------
 ; GCC
 ;--------------------------------------------------------------------
+SectionGroup "GCC Compiler" GCC_SEC
 
 Section "gcc-core" SEC12
   SectionIn RO
@@ -1835,12 +1863,54 @@ Section "gcc-g++" SEC14
   File "C:\GNUstep-devel\1.0.11\mingw\man\man1\g++.1"
 SectionEnd
 
+SectionGroupEnd
+
+Section "gdb" SEC15
+  SetOverwrite try
+  ; NOTE: Some files already included in binutils
+  ; Files from gdb-6.6.tar.bz2
+  SetOutPath "$INSTDIR\mingw\bin"
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\gdb.exe"
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\gdbserver.exe"
+  ;SetOutPath "$INSTDIR\mingw\include"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\include\ansidecl.h"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\include\bfd.h"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\include\bfdlink.h"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\include\dis-asm.h"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\include\symcat.h"
+  SetOutPath "$INSTDIR\mingw\info"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\info\annotate.info"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\info\bfd.info"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\info\configure.info"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\info\dir"
+  File "C:\GNUstep-devel\1.0.11\mingw\info\gdb.info"
+  File "C:\GNUstep-devel\1.0.11\mingw\info\gdb.info-1"
+  File "C:\GNUstep-devel\1.0.11\mingw\info\gdb.info-2"
+  File "C:\GNUstep-devel\1.0.11\mingw\info\gdb.info-3"
+  File "C:\GNUstep-devel\1.0.11\mingw\info\gdb.info-4"
+  File "C:\GNUstep-devel\1.0.11\mingw\info\gdbint.info"
+  File "C:\GNUstep-devel\1.0.11\mingw\info\gdbint.info-1"
+  File "C:\GNUstep-devel\1.0.11\mingw\info\gdbint.info-2"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\info\stabs.info"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\info\standards.info"
+  ;SetOutPath "$INSTDIR\mingw\lib"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\lib\libbfd.a"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\lib\libbfd.la"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\lib\libiberty.a"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\lib\libopcodes.a"
+  ;File "C:\GNUstep-devel\1.0.11\mingw\lib\libopcodes.la"
+  SetOutPath "$INSTDIR\mingw\man\man1"
+  File "C:\GNUstep-devel\1.0.11\mingw\man\man1\gdb.1"
+  File "C:\GNUstep-devel\1.0.11\mingw\man\man1\gdbserver.1"
+SectionEnd
+
 ; Section descriptions
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC01} "MSYS Core from msysCORE-1.0.11-2007.01.19-1.tar.bz2"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC01} "Core system files inculding MSYS Core from msysCORE-1.0.11-2007.01.19-1.tar.bz2"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC02} "Binutils from binutils-2.17.50-20070129-1"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC03} "MingW Runtime from mingw-runtime-3.13.tar.bz2"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC04} "WIN32 API from w32api-3.10.tar.bz"
+  !insertmacro MUI_DESCRIPTION_TEXT ${LIB_SEC} "Library dependancies"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC05} "gettext-0.16.1"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC06} "libiconv-1.11"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC07} "zlib-1.2.3"
@@ -1848,10 +1918,12 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC09} "jpeg-6b"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC10} "libpng-1.2.23"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC11} "tiff-3.8.2"
+  !insertmacro MUI_DESCRIPTION_TEXT ${GCC_SEC} "GCC 3.4.5 Compiler"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC12} "GCC Core from gcc-core-3.4.5-20060117-1.tar.bz"
 
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC13} "GCC ObjC from gcc-objc-3.4.5-20060117-1.tar.bz2"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC14} "GCC G++ from gcc-g++-3.4.5-20060117-1.tar.gz"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC15} "GDB from gcc-6.6.tar.bz2"
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 Section -AdditionalIcons
@@ -1890,6 +1962,20 @@ Function un.onInit
 FunctionEnd
 
 Section Uninstall
+  ; Delete list for gdb
+  Delete "$INSTDIR\mingw\man\man1\gdbserver.1"
+  Delete "$INSTDIR\mingw\man\man1\gdb.1"
+  Delete "$INSTDIR\mingw\info\gdbint.info-2"
+  Delete "$INSTDIR\mingw\info\gdbint.info-1"
+  Delete "$INSTDIR\mingw\info\gdbint.info"
+  Delete "$INSTDIR\mingw\info\gdb.info-4"
+  Delete "$INSTDIR\mingw\info\gdb.info-3"
+  Delete "$INSTDIR\mingw\info\gdb.info-2"
+  Delete "$INSTDIR\mingw\info\gdb.info-1"
+  Delete "$INSTDIR\mingw\info\gdb.info"
+  Delete "$INSTDIR\mingw\bin\gdbserver.exe"
+  Delete "$INSTDIR\mingw\bin\gdb.exe"
+
   ; Delete list for gettext
   Delete "$INSTDIR\mingw\share\man\man3\textdomain.3"
   Delete "$INSTDIR\mingw\share\man\man3\ngettext.3"
@@ -2391,6 +2477,7 @@ Section Uninstall
   Delete "$INSTDIR\mingw\bin\fax2ps.exe"
   Delete "$INSTDIR\mingw\bin\bmp2tiff.exe"
 
+  ; rmdir list for gdb
 
   ; rmdir list for gettext
   RMDir "$INSTDIR\mingw\share\locale\zh_TW\LC_MESSAGES"
@@ -3622,12 +3709,14 @@ Section Uninstall
   RMDir "$INSTDIR\mingw\bin"
   RMDir "$INSTDIR\mingw"
 
+  Delete "$INSTDIR\gnustep-system-README.rtf"
+  Delete "$INSTDIR\${PRODUCT_NAME}.url"
+  Delete "$INSTDIR\UninstallGNUstepSystem.exe"
+
   ; Remove everything in home
   RMDir /r "$INSTDIR\home"
   RMDir "$INSTDIR"
 
-  Delete "$INSTDIR\${PRODUCT_NAME}.url"
-  Delete "$INSTDIR\UninstallGNUstepSystem.exe"
   !insertmacro MUI_STARTMENU_GETFOLDER Application $ICONS_GROUP
   Delete "$SMPROGRAMS\$ICONS_GROUP\Uninstall\UninstallSystem.lnk"
   Delete "$SMPROGRAMS\$ICONS_GROUP\Website.lnk"

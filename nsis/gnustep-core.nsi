@@ -3198,6 +3198,7 @@ Section Uninstall
 
   RMDir "$INSTDIR\GNUstep"
 
+  Delete "$INSTDIR\gnustep-core-README.rtf"
   Delete "$INSTDIR\UninstallGNUstepCore.exe"
   !insertmacro MUI_STARTMENU_GETFOLDER Application $ICONS_GROUP
   Delete "$SMPROGRAMS\$ICONS_GROUP\Uninstall\UninstallCore.lnk"

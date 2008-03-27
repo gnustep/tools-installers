@@ -90,7 +90,7 @@ if [ x$2 = x -o x$2 = xmake ]; then
   rm -rf gnustep-make-*
   tar -zxf $GNUSTEP_DIR/gnustep-make-*tar.gz
   cd gnustep-make-*
-  ./configure --prefix=/GNUstep --with-config-file=/GNUstep/GNUstep.conf --host=i386-mingw32 CC=/opt/local/bin/i386-mingw32-gcc
+  ./configure --prefix=/GNUstep --with-config-file=/GNUstep/GNUstep.conf --target=i386-mingw32 CC=/opt/local/bin/i386-mingw32-gcc
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1

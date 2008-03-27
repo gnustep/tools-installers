@@ -25,7 +25,7 @@
 #
 
 # Packages. The -m before the name means it goes in the mingw subdir
-SYSTEM_FILES="msysCORE -m binutils -m mingw-runtime -m w32api -m gettext -m libiconv -m zlib -m libxml -m jpeg -m libpng -m tiff -m gcc-core -m gcc-objc -m gcc-g++"
+SYSTEM_FILES="msysCORE -m binutils -m mingw-runtime -m w32api -m gettext -m libiconv -m zlib -m libxml -m jpeg -m libpng -m tiff -m gcc-core -m gcc-objc -m gcc-g++ -m gdb"
 GSTEP_FILES="gnustep-make ffcall gnustep-objc gnustep-base gnustep-gui gnustep-back"
 
 # Pick the package we are making
@@ -36,10 +36,16 @@ if [ x$1 = xgstep -o x$1 = xcore ]; then
   PACKAGES=$GSTEP_FILES
   INSTALLER="gnustep-core"
 fi
+if [ x$1 = xuser  ]; then
+  PACKAGES=$SYSTEM_FILES
+  INSTALLER="gnustep-user"
+  ARGS=-u
+fi
   
 OUTPATH=$INSTALLER-sections.nsi
 TEMPFILE=temp-nsi
 
+rm -f files-not-added.txt
 # Create the file lists
 for package in $PACKAGES; do
   if test $package = -m; then

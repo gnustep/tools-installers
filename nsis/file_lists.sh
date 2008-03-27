@@ -123,6 +123,13 @@ for file in $ALLFILES; do
         REMOVEIT=yes
 	echo "  $i" >> files-not-added.txt
       fi
+      if [ $USER = yes ]; then
+        # User only files (dlls)
+        if [ `basename $i .dll` = `basename $i` ]; then 
+          REMOVEIT=yes
+	  echo "  $i" >> files-not-added.txt
+        fi
+      fi
       if [ $cdir != $newdir ]; then
         cdir=$newdir
         windir=`echo $newdir | tr '/' '\\'`
