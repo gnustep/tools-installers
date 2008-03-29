@@ -11,11 +11,11 @@ Here's a basic overview of what needs to be done currently:
 
 1. Download compiled packages from www.mingw.org and put them in the
 "packages" directory (still tar'd and compressed). Install them as well
-(on Windows and cross-compile location). See below for a list
+(on Windows and the packages directory). See below for a list
 
 2. Download source packages from wherever they are located and put them
 in the "sources" directory. Compile them on Windows or cross-compile them.
-Install them. Also copy/tar all the files to a separate install directory
+Install them. Also install all the files to a separate install directory
 for each package in the "pakages" directory. For instantance, you might
 put the libxml package in the packages directory like this:
 
@@ -24,13 +24,12 @@ cd $CURRENT/sources/libxml2-2.6.30
 mkdir -p $CURRENT/packages/libxml2
 make DESTDIR=$CURRENT/packages/libxml2 install
 
-For my particular setup, I use the following scripts to cross-compile all
+For my particular setup, I use the following scripts to native or cross all
 the packages and create the package lists in the packages directory.  I
 also use the second script to actually install the packages on the
 Windows machine.
 
-cross-compile.sh
-install-local.sh
+native-compile.sh (or cross-compile.sh and install-local.sh)
 
 3. Use the create_script.sh script to generate the file lists needed for the
 installer. Use the argument "system", or "core" to generate the 
@@ -56,6 +55,7 @@ w32api
 gcc-core
 gcc-objc
 gcc-g++
+gdb
 
 GNUstep Depend (Now part of System):
 ---------------
