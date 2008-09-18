@@ -29,6 +29,8 @@
 SRCDIR=`dirname $0`
 SRCDIR=`cd $SRCDIR && pwd`
 # Location of the MinGW packages in compressed format (last / is important)
+DISTDIR=$SRCDIR/sources/mingw/
+# Location of compiled packages
 PACKAGEDIR=$SRCDIR/packages/
 # Location where the MinGW packages are installed (for when we
 # compile the nsis script).
@@ -66,11 +68,14 @@ if [ x$ALLFILES = x ]; then
   ALLFILES="$SYSTEM_MINGW_FILES $SYSTEM_GCC_FILES"
 fi
 
-echo Looking for packages in $PACKAGEDIR
+echo Looking for packages in $PACKAGEDIR and $DISTDIR
 echo Looking for packages $ALLFILES
 for file in $ALLFILES; do
   if [ `dirname $file` = "." ]; then
-    fullname=`find $PACKAGEDIR -name $file\* -prune`
+    fullname=`find $DISTDIR -name $file\* -prune`
+    if [ "x$fullname" = x ]; then
+      fullname=`find $PACKAGEDIR -name $file\* -prune`
+    fi
   else
     fullname=$file
   fi

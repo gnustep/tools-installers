@@ -25,8 +25,9 @@
 #
 
 # Packages. The -m before the name means it goes in the mingw subdir
-SYSTEM_FILES="msysCORE -m binutils -m mingw-runtime -m w32api -m gettext -m libiconv -m zlib -m libxml -m jpeg -m libpng -m tiff -m gcc-core -m gcc-objc -m gcc-g++ -m gdb"
+SYSTEM_FILES="msysCORE MSYS binutils tar vim -m mingwrt-3.15-mingw32-dev -m mingwrt-3.15-mingw32-dll -m w32api -m gettext -m libiconv -m zlib libxml -m jpeg libpng tiff -m gcc-core -m gcc-objc -m gcc-g++ -m gdb"
 GSTEP_FILES="gnustep-make ffcall gnustep-objc gnustep-base gnustep-gui gnustep-back"
+CAIRO_FILES="-m freetype -m fontconfig -m pixman -m cairo gnustep-cairo"
 
 # Pick the package we are making
 PACKAGES=$SYSTEM_FILES
@@ -40,6 +41,10 @@ if [ x$1 = xuser  ]; then
   PACKAGES=$SYSTEM_FILES
   INSTALLER="gnustep-user"
   ARGS=-u
+fi
+if [ x$1 = xcairo  ]; then
+  PACKAGES=$CAIRO_FILES
+  INSTALLER="gnustep-cairo"
 fi
   
 OUTPATH=$INSTALLER-sections.nsi

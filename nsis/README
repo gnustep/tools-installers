@@ -10,13 +10,15 @@ something from scratch.
 Here's a basic overview of what needs to be done currently:
 
 1. Download compiled packages from www.mingw.org and put them in the
-"packages" directory (still tar'd and compressed). Install them as well
-(on Windows and the packages directory). See below for a list
+"sources/mingw" directory (still tar'd and compressed). Install them as well
+(on Windows and the packages directory). See DOWNLOADS for a list
+
+Use native-mingw-install.sh  to help with this.
 
 2. Download source packages from wherever they are located and put them
 in the "sources" directory. Compile them on Windows or cross-compile them.
 Install them. Also install all the files to a separate install directory
-for each package in the "pakages" directory. For instantance, you might
+for each package in the "pakages" directory. For instance, you might
 put the libxml package in the packages directory like this:
 
 CURRENT=`pwd`
@@ -66,6 +68,10 @@ libxml
 jpeg
 libpng
 tiff
+
+libgpg-error
+libgcrypt
+gnutls
 
 GNUstep Core:
 ------------
