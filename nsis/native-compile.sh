@@ -23,9 +23,9 @@ make_package()
     make distclean
   fi
   if [ $PACKAGE = jpeg ]; then
-    patch -p1 < ../../jpeg-6b-mingw.patch
+    patch -N -p1 < ../../jpeg-6b-mingw.patch
   elif [ $PACKAGE = zlib ]; then
-    patch -p1 < ../../zlib-1.2.3-mingw.patch
+    patch -N -p1 < ../../zlib-1.2.3-mingw.patch
   fi
   if [ $PACKAGE != zlib ]; then
     echo "./configure --prefix=/mingw $PACKAGE_CONFIG"
@@ -38,7 +38,7 @@ make_package()
   fi
   echo "Making $PACKAGE"
   if [ $PACKAGE = zlib ]; then
-    make -f win32/Makefile.gcc
+    make -f win32/Makefile.gcc CFLAGS="$CFLAGS"
   else
     make LN_S=cp
   fi
@@ -48,7 +48,7 @@ make_package()
     return
   fi
   if [ $PACKAGE = zlib ]; then
-    make -f win32/Makefile.gcc prefix=/mingw install
+    make -f win32/Makefile.gcc CFLAGS="$CFLAGS" prefix=/mingw install
   else
     make install
   fi
@@ -65,6 +65,10 @@ make_package()
     make DESTDIR=$PACKAGE_DIR/${PACKAGE}/ install
   fi
 }
+
+# Flags required for Win2K and perhaps other systems
+CFLAGS="-g -O2 -fno-omit-frame-pointer -fstrict-aliasing"
+export CFLAGS
 
 #
 # Dependancies
@@ -109,7 +113,6 @@ if [ x$2 = x -o x$2 = xall -o x$2 = xmake ]; then
     gsexitstatus=1
     exit 1
   fi
-  make
   make install
   rm -rf $PACKAGE_DIR/gnustep-make/
   make DESTDIR=$PACKAGE_DIR/gnustep-make/ install
@@ -130,8 +133,8 @@ if [ x$2 = xall -o x$2 = xffcall ]; then
   if [ -f config.status ]; then
     make distclean
   fi
-  #patch -p1 < ../ffcall-config.patch
-  #patch -p1 < ../ffcall-exec.patch
+  patch -N -p1 < ../ffcall-config.patch
+  patch -N -p1 < ../ffcall-exec.patch
   ./configure --prefix=/GNUstep/System --libdir=/GNUstep/System/Library/Libraries --includedir=/GNUstep/System/Library/Headers --enable-shared 
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
@@ -190,7 +193,6 @@ if [ x$2 = x -o x$2 = xall -o x$2 = xmake ]; then
     gsexitstatus=1
     exit 1
   fi
-  make
   make install
   rm -rf $PACKAGE_DIR/gnustep-make/
   make DESTDIR=$PACKAGE_DIR/gnustep-make/ install
@@ -214,13 +216,12 @@ if [ x$2 = x -o x$2 = xall -o x$2 = xbase ]; then
     gsexitstatus=1
     exit 1
   fi
-  make
+  make install
   gsexitstatus=$?
   if [ $gsexitstatus != 0 ]; then
     gsexitstatus=1
     exit
   fi
-  make install
   rm -rf $PACKAGE_DIR/gnustep-base
   mkdir -p $PACKAGE_DIR/gnustep-base/GNUstep/System/Library/Libraries
   mkdir -p $PACKAGE_DIR/gnustep-base/GNUstep/System/Library/Makefiles
@@ -241,19 +242,18 @@ if [ x$2 = x -o x$2 = xall -o x$2 = xgui ]; then
   if [ -f config.status ]; then
     make distclean
   fi
-  ./configure
+  ./configure --disable-jpeg
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1
     exit 1
   fi
-  make
+  make install
   gsexitstatus=$?
   if [ $gsexitstatus != 0 ]; then
     gsexitstatus=1
     exit
   fi
-  make install
   rm -rf $PACKAGE_DIR/gnustep-gui
   mkdir -p $PACKAGE_DIR/gnustep-gui/GNUstep/System/Library/Libraries
   mkdir -p $PACKAGE_DIR/gnustep-gui/GNUstep/System/Library/Makefiles
@@ -280,13 +280,12 @@ if [ x$2 = x -o x$2 = xall -o x$2 = xback ]; then
     gsexitstatus=1
     exit 1
   fi
-  make
+  make install
   gsexitstatus=$?
   if [ $gsexitstatus != 0 ]; then
     gsexitstatus=1
     exit
   fi
-  make install
   rm -rf $PACKAGE_DIR/gnustep-back
   mkdir -p $PACKAGE_DIR/gnustep-back/GNUstep/System/Library/Libraries
   mkdir -p $PACKAGE_DIR/gnustep-back/GNUstep/System/Library/Makefiles
