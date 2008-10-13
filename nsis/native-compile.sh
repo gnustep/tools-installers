@@ -98,6 +98,8 @@ fi
 #
 # GNustep-make
 #
+# FIXME: Make sure to comment out the -fno-strict-aliasing in common.make
+#
 if [ x$2 = x -o x$2 = xall -o x$2 = xmake ]; then
   echo "========= Making GNUstep Make ========="
   cd $SOURCES_DIR/gstep
@@ -242,7 +244,7 @@ if [ x$2 = x -o x$2 = xall -o x$2 = xgui ]; then
   if [ -f config.status ]; then
     make distclean
   fi
-  ./configure --disable-jpeg
+  ./configure
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1
