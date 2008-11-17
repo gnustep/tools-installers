@@ -30,6 +30,8 @@ tar -jxvf $SRCDIR/gdb-6.8-mingw-3.tar.bz2
 #   edit /etc/profile and remove first '.' from PATH
 #   cp /bin/rvi /bin/vi - Also edit /bin/vi to remove -Z
 #   edit /mingw/include/stdio.h and change __argv to f__argv
+#   edit /mingw/include/stlib.h:317 and change inline to __inline__
+#   mv /bin/rxvt.exe /bin/rxvt-save.exe
 
 
 

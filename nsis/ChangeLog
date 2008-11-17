@@ -1,4 +1,13 @@
-2008-01-12  Adam Fedor <fedor@gnu.org>
+2008-10-20  Adam Fedor <fedor@gnu.org>
+
+	* gnustep-system 0.20.3
+	Revert CFLAGS. Move rxvt.exe out of the way
+
+	* gnustep-core 0.20.3
+	Correct jpeg include bug with NSBitmapImageRep+JPEG.m
+	Revert CFLAGS.
+
+2008-10-12  Adam Fedor <fedor@gnu.org>
 
 	* gnustep-core 0.20.2
 	* Enable jpeg again (disabled by accident).

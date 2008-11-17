@@ -38,7 +38,8 @@ make_package()
   fi
   echo "Making $PACKAGE"
   if [ $PACKAGE = zlib ]; then
-    make -f win32/Makefile.gcc CFLAGS="$CFLAGS"
+    #make -f win32/Makefile.gcc CFLAGS="$CFLAGS"
+    make -f win32/Makefile.gcc 
   else
     make LN_S=cp
   fi
@@ -48,7 +49,8 @@ make_package()
     return
   fi
   if [ $PACKAGE = zlib ]; then
-    make -f win32/Makefile.gcc CFLAGS="$CFLAGS" prefix=/mingw install
+    #make -f win32/Makefile.gcc CFLAGS="$CFLAGS" prefix=/mingw install
+    make -f win32/Makefile.gcc prefix=/mingw install
   else
     make install
   fi
@@ -67,8 +69,8 @@ make_package()
 }
 
 # Flags required for Win2K and perhaps other systems
-CFLAGS="-g -O2 -fno-omit-frame-pointer -fstrict-aliasing"
-export CFLAGS
+#CFLAGS="-g"
+#export CFLAGS
 
 #
 # Dependancies
@@ -172,6 +174,8 @@ if [ x$2 = xall -o x$2 = xobjc ]; then
     exit
   fi
   make install
+  # strip the dll
+  strip /GNUstep/System/Tools/objc-1.dll
   rm -rf $PACKAGE_DIR/gnustep-objc
   mkdir -p $PACKAGE_DIR/gnustep-objc/GNUstep/System/Library/Libraries
   mkdir -p $PACKAGE_DIR/gnustep-objc/GNUstep/System/Library/Headers
@@ -295,4 +299,50 @@ if [ x$2 = x -o x$2 = xall -o x$2 = xback ]; then
   mkdir -p $PACKAGE_DIR/gnustep-back/GNUstep/System/Tools
   make DESTDIR=$PACKAGE_DIR/gnustep-back install
 fi  
+
+#
+# Cairo backend
+#
+
+if [ x$2 = xcairo ]; then
+
+  # Make sure to install precompiled pacakages:
+  # crypt, perl, glib, pkg-config
+  # FIXME: bug in freetype - have to type make manually?!?!?!
+
+  if [ x$3 = xall ]; then
+    packages="freetype fontconfig pixman cairo"
+    PACKAGE_CONFIG=
+    for name in $packages; do
+      PACKAGE=$name
+      make_package
+    done
+  fi
+
+  echo "========= Making GNUstep Back (Cairo)  ========="
+  cd $SOURCES_DIR/gstep
+  cd gnustep-cairo-*
+  if [ -f config.status ]; then
+    make distclean
+  fi
+  ./configure --enable-graphics=cairo --with-name=cairo
+  gsexitstatus=$?
+  if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
+    gsexitstatus=1
+    exit 1
+  fi
+  make install
+  gsexitstatus=$?
+  if [ $gsexitstatus != 0 ]; then
+    gsexitstatus=1
+    exit
+  fi
+  rm -rf $PACKAGE_DIR/gnustep-cairo
+  mkdir -p $PACKAGE_DIR/gnustep-cairo/GNUstep/System/Library/Libraries
+  mkdir -p $PACKAGE_DIR/gnustep-cairo/GNUstep/System/Library/Makefiles
+  mkdir -p $PACKAGE_DIR/gnustep-cairo/GNUstep/System/Library/Headers
+  mkdir -p $PACKAGE_DIR/gnustep-cairo/GNUstep/System/Tools
+  make DESTDIR=$PACKAGE_DIR/gnustep-cairo install
+
+fi
 

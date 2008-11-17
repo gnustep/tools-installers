@@ -41,3 +41,19 @@ http://www.libpng.org/pub/png/libpng.html:
 ftp://ftp.remotesensing.org/pub/libtiff:
   tiff-3.8.2
 
+#
+# Needed to compile cairo
+#
+http://www.gtk.org/download-windows.html
+  glib 2.18.1
+  pkg-config 0.23-2
+
+#
+# Needed to compile pixman (to compile cairo)
+#
+www.mingw.org/sourceforge:
+  crypt-1.1.1
+  perl-5.6.1
+
+
+

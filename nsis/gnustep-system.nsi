@@ -9,7 +9,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GNUstep Windows System"
-!define PRODUCT_VERSION "0.20.1"
+!define PRODUCT_VERSION "0.20.3"
 !define PRODUCT_PUBLISHER "GNUstep"
 !define PRODUCT_WEB_SITE "http://www.gnustep.org"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GNUstep"
@@ -148,7 +148,7 @@ Section "CORE" SEC01
   File "C:\GNUstep-devel\1.0.11\bin\rm.exe"
   File "C:\GNUstep-devel\1.0.11\bin\rmdir.exe"
   File "C:\GNUstep-devel\1.0.11\bin\rvi"
-  File "C:\GNUstep-devel\1.0.11\bin\rxvt.exe"
+  File "C:\GNUstep-devel\1.0.11\bin\rxvt-save.exe"
   File "C:\GNUstep-devel\1.0.11\bin\sed.exe"
   File "C:\GNUstep-devel\1.0.11\bin\sh.exe"
   File "C:\GNUstep-devel\1.0.11\bin\sleep.exe"
@@ -1940,7 +1940,7 @@ Section Uninstall
   Delete "$INSTDIR\bin\sleep.exe"
   Delete "$INSTDIR\bin\sh.exe"
   Delete "$INSTDIR\bin\sed.exe"
-  Delete "$INSTDIR\bin\rxvt.exe"
+  Delete "$INSTDIR\bin\rxvt-save.exe"
   Delete "$INSTDIR\bin\rvi"
   Delete "$INSTDIR\bin\rmdir.exe"
   Delete "$INSTDIR\bin\rm.exe"
