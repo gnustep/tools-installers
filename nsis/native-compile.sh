@@ -76,15 +76,13 @@ make_package()
 # Dependancies
 #
 if [ x$1 != xgnustep ]; then
-  packages="zlib libxml2 jpeg tiff libpng"
+  packages="zlib libxml2 jpeg tiff libpng libgpg-error libgcrypt gnutls"
   if [ x$1 != x ]; then
     packages=$*
   fi
   PACKAGE_CONFIG=
   for name in $packages; do
     # Notes:
-    # libgcrypt: Need to go into config.status and change ln -s to cp
-    # gnutls: problem with lgl/time.h?
     PACKAGE=$name
     make_package
   done
@@ -96,13 +94,13 @@ fi
 # GNUstep
 #
 #  . /GNUstep/System/Library/Makefiles/GNUstep.sh
+export GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
 
 #
 # GNustep-make
 #
-# FIXME: Make sure to comment out the -fno-strict-aliasing in common.make
 #
-if [ x$2 = x -o x$2 = xall -o x$2 = xmake ]; then
+if [ x$2 = xall -o x$2 = xmake ]; then
   echo "========= Making GNUstep Make ========="
   cd $SOURCES_DIR/gstep
   #rm -rf gnustep-make-*
@@ -125,7 +123,7 @@ fi
   . /GNUstep/System/Library/Makefiles/GNUstep-reset.sh
   . /GNUstep/System/Library/Makefiles/GNUstep.sh
   
-if [ x$2 = xall -o x$2 = xffcall ]; then
+if [ x$2 = xffcall ]; then
 #
 # ffcall
 #
@@ -156,6 +154,38 @@ if [ x$2 = xall -o x$2 = xffcall ]; then
   mkdir -p $PACKAGE_DIR/ffcall
   mkdir -p $PACKAGE_DIR/ffcall/GNUstep/System/Library/Libraries
   make DESTDIR=$PACKAGE_DIR/ffcall install
+fi
+
+if [ x$2 = xall -o x$2 = xlibffi ]; then
+#
+# libffi
+#
+  echo "========= Making libffi ========="
+  cd $SOURCES_DIR/gstep
+  #rm -rf libffi-*
+  #tar -zxf /Local/Software/gstep/startup/sources/libffi-*tar.gz
+  cd $SOURCES_DIR/gstep/libffi-*
+  patch -N -p0 < ../libffi-includes.patch
+  if [ -f config.status ]; then
+    make distclean
+  fi
+  ./configure --prefix=/GNUstep/System --libdir=/GNUstep/System/Library/Libraries --includedir=/GNUstep/System/Library/Headers --enable-shared 
+  gsexitstatus=$?
+  if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
+    gsexitstatus=1
+    exit 1
+  fi
+  make LN=cp LN_S=cp
+  gsexitstatus=$?
+  if [ $gsexitstatus != 0 ]; then
+    gsexitstatus=1
+    exit
+  fi
+  make install
+  rm -rf $PACKAGE_DIR/libffi
+  mkdir -p $PACKAGE_DIR/libffi
+  mkdir -p $PACKAGE_DIR/libffi/GNUstep/System/Library/Libraries
+  make DESTDIR=$PACKAGE_DIR/libffi install
 fi
 
 #
