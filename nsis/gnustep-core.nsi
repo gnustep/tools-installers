@@ -3242,7 +3242,7 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC01} "GNUstep Make 2.0.7"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC02} "libffi"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC03} "gnustep-objc 1.6.0"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC04} "GNUstep Base 1.19.0"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC04} "GNUstep Base 1.19.1"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC05} "GNUstep GUI 0.17.0"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC06} "GNUstep Back 0.17.0"
 !insertmacro MUI_FUNCTION_DESCRIPTION_END

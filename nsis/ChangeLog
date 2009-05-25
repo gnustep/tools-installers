@@ -4,7 +4,7 @@
 	Moved crypt library here from gnustep-cairo
 
 	* gnustep-core 0.23.0
-	New core libraries make 2.2.0, base 1.19.0, gui/back 0.17.0
+	New core libraries make 2.2.0, base 1.19.1, gui/back 0.17.0
 
 2008-12-27  Adam Fedor <fedor@gnu.org>
 
