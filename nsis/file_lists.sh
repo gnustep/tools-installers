@@ -101,7 +101,12 @@ for file in $ALLFILES; do
       # This is an archive
       echo $fullname | grep -q gz
       if [ $? = 1 ]; then 
-        files=`tar -jtf $fullname`
+        echo $fullname | grep -q zip
+        if [ $? = 1 ]; then 
+          files=`zip -l $fullname`
+	else
+          files=`tar -jtf $fullname`
+	fi
       else
         files=`tar -ztf $fullname`
       fi

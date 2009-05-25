@@ -1,3 +1,11 @@
+2009-05-26  Adam Fedor <fedor@gnu.org>
+
+	* gnustep-system 0.23.0
+	Moved crypt library here from gnustep-cairo
+
+	* gnustep-core 0.23.0
+	New core libraries make 2.2.0, base 1.19.0, gui/back 0.17.0
+
 2008-12-27  Adam Fedor <fedor@gnu.org>
 
 	* gnustep-system 0.22.0
@@ -9,7 +17,7 @@
 
 	* gnustep-core 0.22.0
 	Removed ffcall and add libffi
-	New core libraries mak 2.0.7, base 1.18.0, gui/back 0.16.0
+	New core libraries make 2.0.7, base 1.18.0, gui/back 0.16.0
 
 2008-10-20  Adam Fedor <fedor@gnu.org>
 

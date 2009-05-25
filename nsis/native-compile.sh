@@ -337,7 +337,7 @@ fi
 if [ x$2 = xcairo ]; then
 
   # Make sure to install precompiled pacakages:
-  # crypt, perl, glib, pkg-config
+  # crypt, glib, (pkg-config, perl from the devel package)
   # FIXME: bug in freetype - have to type make manually?!?!?!
 
   if [ x$3 = xall ]; then
@@ -376,3 +376,22 @@ if [ x$2 = xcairo ]; then
 
 fi
 
+#
+# Developer package
+#
+
+if [ x$2 = xdevel ]; then
+
+  # Make sure to install precompiled pacakages:
+  # perl
+
+  if [ x$3 = xall ]; then
+    packages="autoconf libtool"
+    PACKAGE_CONFIG=
+    for name in $packages; do
+      PACKAGE=$name
+      # FIXME Need to make in /usr
+    done
+  fi
+
+fi

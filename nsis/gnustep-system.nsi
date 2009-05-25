@@ -9,7 +9,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GNUstep Windows System"
-!define PRODUCT_VERSION "0.22.0"
+!define PRODUCT_VERSION "0.23.0"
 !define PRODUCT_PUBLISHER "GNUstep"
 !define PRODUCT_WEB_SITE "http://www.gnustep.org"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GNUstep"
@@ -2175,6 +2175,18 @@ Section "gnutls" SEC025
   File "C:\GNUstep-devel\1.0.11\mingw\share\info\gnutls.info-3"
 SectionEnd
 
+Section "crypt" SEC026
+  SectionIn RO
+  ; Files from crypt-1.1-1-MSYS-1.0.11-1.tar.bz2
+  SetOutPath "$INSTDIR\mingw\bin"
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\crypt.exe"
+  File "C:\GNUstep-devel\1.0.11\mingw\bin\msys-crypt-0.dll"
+  SetOutPath "$INSTDIR\mingw\include"
+  File "C:\GNUstep-devel\1.0.11\mingw\include\crypt.h"
+  SetOutPath "$INSTDIR\mingw\lib"
+  File "C:\GNUstep-devel\1.0.11\mingw\lib\libcrypt.a"
+  File "C:\GNUstep-devel\1.0.11\mingw\lib\libcrypt.dll.a"
+SectionEnd
 
 ;-------------------------------------------------------------------
 ; Finish up
@@ -2203,6 +2215,7 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC023} "libgpg-error-1.7"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC024} "libgcrypt-1.4.3"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC025} "gnutls-2.6.3"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC026} "crypt-1.1.1"
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 Section -AdditionalIcons
@@ -3977,6 +3990,15 @@ Section Uninstall
   Delete "$INSTDIR\mingw\bin\gnutls-cli.exe"
   Delete "$INSTDIR\mingw\bin\gnutls-cli-debug.exe"
   Delete "$INSTDIR\mingw\bin\certtool.exe"
+
+  ; Delete list for crypt
+  Delete "$INSTDIR\mingw\lib\libcrypt.dll.a"
+  Delete "$INSTDIR\mingw\lib\libcrypt.a"
+  Delete "$INSTDIR\mingw\include\crypt.h"
+  Delete "$INSTDIR\mingw\bin\msys-crypt-0.dll"
+  Delete "$INSTDIR\mingw\bin\crypt.exe"
+
+  ; rmdir list for crypt
 
   ; rmdir list for gnutls
   RMDir "$INSTDIR\mingw\include\gnutls"

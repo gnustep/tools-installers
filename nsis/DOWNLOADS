@@ -22,6 +22,9 @@ www.mingw.org/sourceforge:
   openssl-0.9.8g-1-MSYS-1.0.11-2-dev.tar
   openssl-0.9.8g-1-MSYS-1.0.11-2-dll098.tar
 
+  # For ssh/cvs and also cairo
+  crypt-1.1.1
+
   # Obsolete?
   #bash-3.1-MSYS-1.0.11-1.tar.bz2
   #bzip2-1.0.3-MSYS-1.0.11-1.tar.bz2
@@ -44,19 +47,37 @@ ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.7.tar.gz
 http://ftp.gnu.org/gnu/gnutls/gnutls-2.6.3.tar.bz2
 
 
-#
-# Needed to compile cairo
-#
+Cairo Precompiled:
+===================
 http://www.gtk.org/download-windows.html
   glib 2.18.1
-  pkg-config 0.23-2
 
-#
-# Needed to compile pixman (to compile cairo)
-#
+Cairo Source:
+=============
+http://savannah.inetbridge.net/freetype/
+  freetype 2.3.7
+http://fontconfig.org/release/
+  fontconfig 2.6.0
+http://www.cairographics.org/releases/
+  pixman 0.13.2
+  cairo 1.8.6
+
+
+Developer Package
+================
+
 www.mingw.org/sourceforge:
-  crypt-1.1.1
   perl-5.6.1
+  cvs-1.11.22-MSYS-1.0.11-1-bin
+  zlib-1.2.3-MSYS-1.0.11-1
+  minires-1.01-1-MSYS-1.0.11-1
+  openssh-4.7p1-MSYS-1.0.11-1-bin
+  pkg-config 0.23-2
+  
+???:
+  svn-win32-1.5.5
 
-
+ftp.gnu.org:
+  autoconf
+  libtool
 

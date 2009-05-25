@@ -38,6 +38,3 @@ cd ..
 cp bin/rvi bin/vi
 mv bin/rxvt.exe bin/rxvt-save.exe
 
-
-
-
