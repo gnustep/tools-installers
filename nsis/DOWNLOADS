@@ -1,42 +1,44 @@
 
 Precompile Packages:
 ====================
-www.mingw.org/sourceforge:
+www.mingw.org (http://sourceforge.net/projects/mingw/files):
 
-  msysCORE-1.0.11-20080826.tar.gz
-  MSYS-1.0.11-20080821-dll.tar.gz
-  binutils-2.18.50-20080109-2.tar.gz
-  tar-1.13.19-MSYS-2005.06.08.tar.bz2 (tar-1.19.90 has problems)
-  vim-7.1-MSYS-1.0.11-1-bin.tar.gz
-  mingwrt-3.15-mingw32-dev.tar.gz
-  mingwrt-3.15-mingw32-dll.tar.gz
-  w32api-3.12-mingw32-dev.tar.gz
-  gettext-0.16.1-MSYS-1.0.11-1.tar.bz2
-  libiconv-1.11-MSYS-1.0.11-1.tar.bz2
-  gcc-core-3.4.5-20060117-3.tar.gz
-  gcc-g++-3.4.5-20060117-3.tar.gz
-  gcc-objc-3.4.5-20060117-3.tar.gz
-  gdb-6.8-mingw-3.tar.bz2
+# msys
+binutils-2.19.1-mingw32-bin.tar.gz
+gettext-0.17-1-msys-1.0.11-bin.tar.lzma
+gettext-0.17-1-msys-1.0.11-dev.tar.lzma
+libiconv-1.13.1-1-msys-1.0.11-bin.tar.lzma
+libiconv-1.13.1-1-msys-1.0.11-dev.tar.lzma
+libopenssl-0.9.8k-1-msys-1.0.11-dev.tar.lzma
+libopenssl-0.9.8k-1-msys-1.0.11-dll-098.tar.lzma
+mingwrt-3.16-mingw32-dev.tar.gz
+mingwrt-3.16-mingw32-dll.tar.gz
+msysCORE-1.0.11-bin.tar.gz
+openssl-0.9.8k-1-msys-1.0.11-bin.tar.lzma
+tar-1.22-1-msys-1.0.11-bin.tar.lzma
+vim-7.2-1-msys-1.0.11-bin.tar.lzma
+w32api-3.13-mingw32-dev.tar.gz
 
-  openssl-0.9.8g-1-MSYS-1.0.11-2-bin.tar
-  openssl-0.9.8g-1-MSYS-1.0.11-2-dev.tar
-  openssl-0.9.8g-1-MSYS-1.0.11-2-dll098.tar
+gmp-4.2.4-mingw32-dll.tar.gz
+mpfr-2.4.1-mingw32-dll.tar.gz
+gcc-c++-4.4.0-mingw32-bin.tar.gz
+gcc-c++-4.4.0-mingw32-dll.tar.gz
+gcc-core-4.4.0-mingw32-bin.tar.gz
+gcc-core-4.4.0-mingw32-dll.tar.gz
+gcc-objc-4.4.0-mingw32-bin.tar.gz
+gcc-objc-4.4.0-mingw32-dll.tar.gz
 
-  # For ssh/cvs and also cairo
-  crypt-1.1.1
-
-  # Obsolete?
-  #bash-3.1-MSYS-1.0.11-1.tar.bz2
-  #bzip2-1.0.3-MSYS-1.0.11-1.tar.bz2
-  #coreutils-5.97-MSYS-1.0.11-snapshot.tar.bz2
-  #diffutils-2.8.7-MSYS-1.0.11-1.tar.bz2
-  #findutils-4.3-MSYS-1.0.11-1.tar.bz2
-  #gawk-3.1.5-MSYS-1.0.11-1.tar.bz2
+# For ssh/cvs and also cairo
+crypt-1.1_1-2-msys-1.0.11-bin.tar.lzma
 
 From Source:
 ============
-???:  zlib-1.2.3
-ftp://xmlsoft.org/libxml2: libxml2-2.7.1.tar.gz
+www.mingw.org:  
+  zlib-1.2.3
+  pthreads-w32-2.8.0-mingw32-src.tar.gz
+
+ftp://xmlsoft.org/libxml2: 
+  libxml2-2.7.6.tar.gz
   # libxslt-1.1.24.tar.gz (Bad, do not install)
 http://www.ijg.org/files/: jpeg-6b
 http://www.libpng.org/pub/png/libpng.html: libpng-1.2.29
@@ -80,4 +82,3 @@ www.mingw.org/sourceforge:
 ftp.gnu.org:
   autoconf
   libtool
-

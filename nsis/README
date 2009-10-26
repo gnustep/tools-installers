@@ -35,7 +35,7 @@ native-compile.sh (or cross-compile.sh and install-local.sh)
 
 3. Use the create_script.sh script to generate the file lists needed for the
 installer. Use the argument "system", or "core" to generate the 
-lists for the indicated intaller.
+lists for the indicated installer.
 
 4. Replace the file lists in the current installer scripts with the new
 file lists.  You need to edit the RMDir lines to make sure dirs
@@ -81,5 +81,4 @@ gnustep-objc
 gnustep-base
 gnustep-gui
 gnustep-back
-
 

@@ -1,3 +1,12 @@
+2009-10-26  Adam Fedor <fedor@gnu.org>
+
+	* gnustep-system-0.24.0
+	All updated MSYS packages (as of 9/9), Pthreads library
+	GCC 4.4, others
+
+	* gnustep-core-0.23.1
+	Update core libraries. base 1.19.2, gui/back 0.17.1
+
 2009-05-26  Adam Fedor <fedor@gnu.org>
 
 	* gnustep-system 0.23.0

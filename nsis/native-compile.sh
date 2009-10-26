@@ -1,4 +1,4 @@
-#
+#!/bin/sh
 # Semi-automatic, useful reminder for how to native compile packages
 # Work in progress. Need to clean this up and make it useful...
 #
@@ -17,17 +17,19 @@ SOURCES_DIR=$HOME_DIR/sources
 
 make_package()
 {
-  echo "Configuring $PACKAGE"
+  echo "Cleaning $PACKAGE"
   cd $SOURCES_DIR/build/${PACKAGE}*
   if [ -f config.status ]; then
     make distclean
   fi
+  # FIXME: Need a patch for libxml2 - xmlexports.h
   if [ $PACKAGE = jpeg ]; then
     patch -N -p1 < ../../jpeg-6b-mingw.patch
   elif [ $PACKAGE = zlib ]; then
     patch -N -p1 < ../../zlib-1.2.3-mingw.patch
   fi
-  if [ $PACKAGE != zlib ]; then
+  echo "Configuring $PACKAGE"
+  if [ $PACKAGE != zlib -a $PACKAGE != pthread ]; then
     echo "./configure --prefix=/mingw $PACKAGE_CONFIG"
     ./configure --prefix=/mingw $PACKAGE_CONFIG
     gsexitstatus=$?
@@ -40,6 +42,8 @@ make_package()
   if [ $PACKAGE = zlib ]; then
     #make -f win32/Makefile.gcc CFLAGS="$CFLAGS"
     make -f win32/Makefile.gcc 
+  elif [ $PACKAGE = pthread ]; then
+    make clean GC
   else
     make LN_S=cp
   fi
@@ -51,6 +55,11 @@ make_package()
   if [ $PACKAGE = zlib ]; then
     #make -f win32/Makefile.gcc CFLAGS="$CFLAGS" prefix=/mingw install
     make -f win32/Makefile.gcc prefix=/mingw install
+  elif [ $PACKAGE = pthread ]; then
+    cp pthread.h sched.h semaphore.h /mingw/include
+    cp libpthreadGC2.a /mingw/lib
+    cp libpthreadGC2.a /mingw/lib/libpthread.a
+    cp pthreadGC2.dll /mingw/bin
   else
     make install
   fi
@@ -63,6 +72,14 @@ make_package()
     make prefix=$PACKAGE_DIR/${PACKAGE} install
   elif [ $PACKAGE = zlib ]; then
     make -f win32/Makefile.gcc prefix=$PACKAGE_DIR/${PACKAGE} install
+  elif [ $PACKAGE = pthread ]; then
+    mkdir -p $PACKAGE_DIR/${PACKAGE}/bin
+    mkdir -p $PACKAGE_DIR/${PACKAGE}/lib
+    mkdir -p $PACKAGE_DIR/${PACKAGE}/include
+    cp pthread.h sched.h semaphore.h $PACKAGE_DIR/${PACKAGE}/include
+    cp libpthreadGC2.a $PACKAGE_DIR/${PACKAGE}/lib
+    cp libpthreadGC2.a $PACKAGE_DIR/${PACKAGE}/lib/libpthread.a
+    cp pthreadGC2.dll $PACKAGE_DIR/${PACKAGE}/bin
   else
     make DESTDIR=$PACKAGE_DIR/${PACKAGE}/ install
   fi
@@ -76,14 +93,17 @@ make_package()
 # Dependancies
 #
 if [ x$1 != xgnustep ]; then
-  packages="zlib libxml2 jpeg tiff libpng libgpg-error libgcrypt gnutls"
+  packages="pthread zlib libxml2 jpeg tiff libpng libgpg-error libgcrypt gnutls"
   if [ x$1 != x ]; then
     packages=$*
   fi
-  PACKAGE_CONFIG=
   for name in $packages; do
     # Notes:
     PACKAGE=$name
+    PACKAGE_CONFIG=
+    if [ $PACKAGE = pthread ]; then
+      PACKAGE_CONFIG=--with-threads=win32
+    fi
     make_package
   done
 
@@ -246,7 +266,7 @@ if [ x$2 = x -o x$2 = xall -o x$2 = xbase ]; then
   if [ -f config.status ]; then
     make distclean
   fi
-  ./configure
+  ./configure --disable-xslt
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1
