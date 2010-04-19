@@ -26,12 +26,10 @@ cd $CURRENT/sources/libxml2-2.6.30
 mkdir -p $CURRENT/packages/libxml2
 make DESTDIR=$CURRENT/packages/libxml2 install
 
-For my particular setup, I use the following scripts to native or cross all
-the packages and create the package lists in the packages directory.  I
-also use the second script to actually install the packages on the
-Windows machine.
+For my particular setup, I use the following scripts to native compile all
+the packages and create the package lists in the packages directory.  
 
-native-compile.sh (or cross-compile.sh and install-local.sh)
+native-compile.sh (or svn-compile.sh)
 
 3. Use the create_script.sh script to generate the file lists needed for the
 installer. Use the argument "system", or "core" to generate the 
@@ -81,4 +79,5 @@ gnustep-objc
 gnustep-base
 gnustep-gui
 gnustep-back
+WinUXTheme
 

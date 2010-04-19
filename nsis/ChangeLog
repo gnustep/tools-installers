@@ -1,3 +1,14 @@
+2010-04-19  Adam Fedor <fedor@gnu.org>
+
+	* gnustep-system-0.24.2
+	Update script to modern interface. Updated MSYS and MingW packages
+	(as of Apr 2010). Added Console2.
+
+	* gnustep-core-0.24.2
+	Update script to modern interface. Updated GNUstep packages to
+	latest SVN (as of Apr 2010). Added WindowUXTheme and added script
+	page to active the theme.
+
 2009-10-26  Adam Fedor <fedor@gnu.org>
 
 	* gnustep-system-0.24.0

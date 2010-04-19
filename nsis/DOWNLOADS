@@ -4,20 +4,22 @@ Precompile Packages:
 www.mingw.org (http://sourceforge.net/projects/mingw/files):
 
 # msys
-binutils-2.19.1-mingw32-bin.tar.gz
+binutils-2.20.1-mingw32-bin.tar.gz
 gettext-0.17-1-msys-1.0.11-bin.tar.lzma
 gettext-0.17-1-msys-1.0.11-dev.tar.lzma
 libiconv-1.13.1-1-msys-1.0.11-bin.tar.lzma
 libiconv-1.13.1-1-msys-1.0.11-dev.tar.lzma
 libopenssl-0.9.8k-1-msys-1.0.11-dev.tar.lzma
 libopenssl-0.9.8k-1-msys-1.0.11-dll-098.tar.lzma
-mingwrt-3.16-mingw32-dev.tar.gz
-mingwrt-3.16-mingw32-dll.tar.gz
-msysCORE-1.0.11-bin.tar.gz
+mingwrt-3.17-mingw32-dev.tar.gz
+mingwrt-3.17-mingw32-dll.tar.gz
+msysCORE-1.0.13-bin.tar.gz
 openssl-0.9.8k-1-msys-1.0.11-bin.tar.lzma
 tar-1.22-1-msys-1.0.11-bin.tar.lzma
 vim-7.2-1-msys-1.0.11-bin.tar.lzma
-w32api-3.13-mingw32-dev.tar.gz
+w32api-3.14-mingw32-dev.tar.gz
+libpthread-2.8.0-3-mingw32-dll-2.tar.lzma
+pthreads-w32-2.8.0-3-mingw32-dev.tar.lzma
 
 gmp-4.2.4-mingw32-dll.tar.gz
 mpfr-2.4.1-mingw32-dll.tar.gz
@@ -31,11 +33,13 @@ gcc-objc-4.4.0-mingw32-dll.tar.gz
 # For ssh/cvs and also cairo
 crypt-1.1_1-2-msys-1.0.11-bin.tar.lzma
 
+# Other packages
+Console2
+
 From Source:
 ============
 www.mingw.org:  
   zlib-1.2.3
-  pthreads-w32-2.8.0-mingw32-src.tar.gz
 
 ftp://xmlsoft.org/libxml2: 
   libxml2-2.7.6.tar.gz

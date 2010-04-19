@@ -3,10 +3,10 @@
 # Work in progress. Need to clean this up and make it useful...
 #
 # Usage:
-# ./native-compile.sh [gnustep] [all | ffcall | objc | make | base | gui | back]
+# ./native-compile.sh [gnustep] [all | libffi | objc | make | base | gui | back]
 #           - default (no args) compile only dependencies (xml, etc)
 #   gnustep - compile only gnustep core 
-#   all - compile all gnustep (including ffcall, objc)
+#   all - compile all gnustep (including libffi, objc)
 #   xxx - compile specific package
 
 # Location of sources, packages, etc.  Change to suit
@@ -145,7 +145,7 @@ fi
   
 if [ x$2 = xffcall ]; then
 #
-# ffcall
+# ffcall (Deprecated)
 #
   echo "========= Making ffcall ========="
   cd $SOURCES_DIR/gstep
@@ -185,11 +185,11 @@ if [ x$2 = xall -o x$2 = xlibffi ]; then
   #rm -rf libffi-*
   #tar -zxf /Local/Software/gstep/startup/sources/libffi-*tar.gz
   cd $SOURCES_DIR/gstep/libffi-*
-  patch -N -p0 < ../libffi-includes.patch
+  #patch -N -p0 < ../libffi-includes.patch
   if [ -f config.status ]; then
     make distclean
   fi
-  ./configure --prefix=/GNUstep/System --libdir=/GNUstep/System/Library/Libraries --includedir=/GNUstep/System/Library/Headers --enable-shared 
+  ./configure --prefix=/GNUstep/System --libdir=/GNUstep/System/Library/Libraries --includedir=/GNUstep/System/Library/Headers  --bindir=/GNUstep/System/Tools --enable-shared 
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1
@@ -204,6 +204,7 @@ if [ x$2 = xall -o x$2 = xlibffi ]; then
   make install
   rm -rf $PACKAGE_DIR/libffi
   mkdir -p $PACKAGE_DIR/libffi
+  mkdir -p $PACKAGE_DIR/libffi/GNUstep/System/Tools
   mkdir -p $PACKAGE_DIR/libffi/GNUstep/System/Library/Libraries
   make DESTDIR=$PACKAGE_DIR/libffi install
 fi

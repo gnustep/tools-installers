@@ -34,7 +34,7 @@ DISTDIR=$SRCDIR/sources/mingw/
 PACKAGEDIR=$SRCDIR/packages/
 # Location where the MinGW packages are installed (for when we
 # compile the nsis script).
-INSTALLDIR="C:\\GNUstep-devel\\1.0.11"
+INSTALLDIR="C:\\GNUstep-devel\\1.0.13"
 # Extra install dir to add on to standard INSTALLDIR
 EXTRADIR=
 # Remove all the doc files

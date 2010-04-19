@@ -1,5 +1,37 @@
 ; Miscellaneous functions we use
 
+;
+; Page to select the Window Theme
+;
+Var Dialog
+Var Label
+Var Checkbox
+Function WindowsThemePage
+	nsDialogs::Create 1018
+	Pop $Dialog
+	${If} $Dialog == error
+		Abort
+	${EndIf}
+
+	${NSD_CreateLabel} 5% 60% 80% 48u "The Windows theme is not activated by default but we would recommend using it as it makes GNUstep look much more like a Windows program. You can use the SystemPreferences application to change this at any time after installation."
+	Pop $Label
+	${NSD_CreateCheckbox} 10% 50% 100% 12u "Activate Windows Theme"
+	Pop $Checkbox
+	${If} $WINDOWS_THEME == ${BST_CHECKED}
+		${NSD_Check} $Checkbox
+	${EndIf}
+
+	nsDialogs::Show
+FunctionEnd
+
+Function WindowsThemeLeave
+	 ${NSD_GetState} $Checkbox $WINDOWS_THEME
+FunctionEnd
+
+
+;
+; Seach for a file
+;
 Function FileSearch
 Exch $R0 ;search for
 Exch
