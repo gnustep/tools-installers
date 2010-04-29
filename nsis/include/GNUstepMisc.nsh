@@ -13,9 +13,9 @@ Function WindowsThemePage
 		Abort
 	${EndIf}
 
-	${NSD_CreateLabel} 5% 60% 80% 48u "The Windows theme is not activated by default but we would recommend using it as it makes GNUstep look much more like a Windows program. You can use the SystemPreferences application to change this at any time after installation."
+	${NSD_CreateLabel} 5% 45% 80% 56u "The Windows theme is not activated by default but we would recommend using it as it makes GNUstep look much more like a Windows program. However, it may not work with some applications, particularly ones that don't automatically bring up a main window. You can use the SystemPreferences application to change this at any time after installation."
 	Pop $Label
-	${NSD_CreateCheckbox} 10% 50% 100% 12u "Activate Windows Theme"
+	${NSD_CreateCheckbox} 10% 35% 100% 12u "Activate Windows Theme"
 	Pop $Checkbox
 	${If} $WINDOWS_THEME == ${BST_CHECKED}
 		${NSD_Check} $Checkbox

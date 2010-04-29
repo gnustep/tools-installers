@@ -1,5 +1,6 @@
 #
 # Compile gnustep current svn
+CLEAN=no
 
 # Location of sources, packages, etc.  Change to suit
 HOME_DIR=/h/Source/nsis
@@ -20,7 +21,7 @@ if [ x$1 = xall -o x$1 = xmake ]; then
   #rm -rf gnustep-make-*
   #tar -zxf $GNUSTEP_DIR/gnustep-make-*tar.gz
   cd make
-  if [ -f config.status ]; then
+  if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
   ./configure --prefix=/GNUstep --with-config-file=/GNUstep/GNUstep.conf
@@ -42,7 +43,7 @@ if [ x$1 = xall -o x$1 = xlibffi ]; then
   #tar -zxf /Local/Software/gstep/startup/sources/libffi-*tar.gz
   cd $SOURCES_DIR/gstep/libffi-*
   patch -N -p0 < ../libffi-includes.patch
-  if [ -f config.status ]; then
+  if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
   ./configure --prefix=/GNUstep/System --libdir=/GNUstep/System/Library/Libraries --includedir=/GNUstep/System/Library/Headers --bindir=/GNUstep/System/Tools --enable-shared 
@@ -74,7 +75,9 @@ fi
 if [ x$1 = x -o x$1 = xall -o x$1 = xobjc ]; then
   echo "========= Making objc  ========="
   cd $SOURCES_DIR/gstep-current/libobjc
-  make clean
+  if [ $CLEAN = yes ]; then
+    make clean
+  fi
   make
   gsexitstatus=$?
   if [ $gsexitstatus != 0 ]; then
@@ -101,7 +104,7 @@ if [ x$1 = x -o x$1 = xall -o x$1 = xmake ]; then
   #rm -rf gnustep-make-*
   #tar -zxf $GNUSTEP_DIR/gnustep-make-*tar.gz
   cd make
-  if [ -f config.status ]; then
+  if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
   ./configure --prefix=/GNUstep --with-config-file=/GNUstep/GNUstep.conf
@@ -127,7 +130,7 @@ if [ x$1 = x -o x$1 = xall -o x$1 = xbase ]; then
   #rm -rf gnustep-base-*
   #tar -zxf $GNUSTEP_DIR/gnustep-base-*tar.gz
   cd base
-  if [ -f config.status ]; then
+  if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
   ./configure
@@ -159,7 +162,7 @@ if [ x$1 = x -o x$1 = xall -o x$1 = xgui ]; then
   #rm -rf gnustep-gui-*
   #tar -zxf $GNUSTEP_DIR/gnustep-gui-*tar.gz
   cd gui
-  if [ -f config.status ]; then
+  if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
   ./configure
@@ -191,7 +194,7 @@ if [ x$1 = x -o x$1 = xall -o x$1 = xback ]; then
   #rm -rf gnustep-back-*
   #tar -zxf $GNUSTEP_DIR/gnustep-back-*tar.gz
   cd back
-  if [ -f config.status ]; then
+  if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
   ./configure
@@ -245,7 +248,7 @@ if [ x$1 = x -o x$1 = xall -o x$1 = xtheme ]; then
   echo "========= Making GNUstep WinUXTheme  ========="
   cd $SOURCES_DIR/gstep-current
   cd WinUXTheme
-  if [ -f config.status ]; then
+  if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
   make install

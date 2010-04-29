@@ -85,7 +85,7 @@ for file in $ALLFILES; do
     echo Found $fullname
     echo "  Getting files..."
     rm -f $file-files.txt
-    if [ -d $fullname ]; then
+    if [ -d "$fullname" ]; then
       # This is an install directory
       pushd $fullname
       # Remove common prefixes

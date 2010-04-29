@@ -1,3 +1,17 @@
+2010-04-29  Adam Fedor <fedor@gnu.org>
+
+	* gnustep-msys-system-0.24.3
+	Renamed from gnustep-system.
+	Moved GCC compiler to the gnustep-devel installer
+
+	* gnustep-core-0.24.3
+	Added some missing files.
+
+	* gnustep-devel-1.1.0
+	Add GCC compiler
+	Added missing glib package
+	Update script to modern interface.
+
 2010-04-19  Adam Fedor <fedor@gnu.org>
 
 	* gnustep-system-0.24.2

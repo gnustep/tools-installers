@@ -57,6 +57,13 @@ Cairo Precompiled:
 ===================
 http://www.gtk.org/download-windows.html
   glib 2.18.1
+  pkg-config
+  freetype
+  fontconfig
+  cairo
+
+  libpng
+  zlib
 
 Cairo Source:
 =============
