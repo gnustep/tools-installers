@@ -20,6 +20,7 @@ vim-7.2-1-msys-1.0.11-bin.tar.lzma
 w32api-3.14-mingw32-dev.tar.gz
 libpthread-2.8.0-3-mingw32-dll-2.tar.lzma
 pthreads-w32-2.8.0-3-mingw32-dev.tar.lzma
+m4-1.4.14-1-msys-1.0.13-bin (Replace m4 in msysCORE)
 
 gmp-4.2.4-mingw32-dll.tar.gz
 mpfr-2.4.1-mingw32-dll.tar.gz
@@ -52,32 +53,11 @@ ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.4.3.tar.gz
 ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.7.tar.gz
 http://ftp.gnu.org/gnu/gnutls/gnutls-2.6.3.tar.bz2
 
-
-Cairo Precompiled:
-===================
+Devel Package
+=============
 http://www.gtk.org/download-windows.html
   glib 2.18.1
   pkg-config
-  freetype
-  fontconfig
-  cairo
-
-  libpng
-  zlib
-
-Cairo Source:
-=============
-http://savannah.inetbridge.net/freetype/
-  freetype 2.3.7
-http://fontconfig.org/release/
-  fontconfig 2.6.0
-http://www.cairographics.org/releases/
-  pixman 0.13.2
-  cairo 1.8.6
-
-
-Developer Package
-================
 
 www.mingw.org/sourceforge:
   perl-5.6.1
@@ -93,3 +73,22 @@ www.mingw.org/sourceforge:
 ftp.gnu.org:
   autoconf
   libtool
+
+Cairo Precompiled:
+===================
+http://www.gtk.org/download-windows.html
+  freetype
+  fontconfig
+  cairo
+
+Cairo Source:
+=============
+http://savannah.inetbridge.net/freetype/
+  freetype 2.3.12
+http://fontconfig.org/release/
+  fontconfig 2.8.0
+http://www.cairographics.org/releases/
+  pixman 0.18.2
+  cairo 1.8.10
+
+

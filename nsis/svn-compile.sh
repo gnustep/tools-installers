@@ -11,6 +11,7 @@ SOURCES_DIR=$HOME_DIR/sources
 # GNUstep
 #
 #  . /GNUstep/System/Library/Makefiles/GNUstep.sh
+export GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
 
 #
 # GNustep-make
@@ -59,6 +60,8 @@ if [ x$1 = xall -o x$1 = xlibffi ]; then
     exit
   fi
   make install
+  # FIXME: dll gets installed in wrong place
+  mv /GNUstep/System/Library/bin/*dll /GNUstep/System/Tools
   rm -rf $PACKAGE_DIR/libffi
   mkdir -p $PACKAGE_DIR/libffi
   mkdir -p $PACKAGE_DIR/libffi/GNUstep/System/Tools
@@ -133,7 +136,7 @@ if [ x$1 = x -o x$1 = xall -o x$1 = xbase ]; then
   if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
-  ./configure
+  ./configure --with-installation-domain=SYSTEM
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1
@@ -197,7 +200,7 @@ if [ x$1 = x -o x$1 = xall -o x$1 = xback ]; then
   if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
-  ./configure
+  ./configure --enable-graphics=winlib
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1
@@ -224,12 +227,12 @@ fi
 if [ x$1 = xcairo ]; then
 
   echo "========= Making GNUstep Back (Cairo)  ========="
-  cd $SOURCES_DIR/gstep-current
-  cd cairo
+  cd $SOURCES_DIR/gstep
+  cd gnustep-cairo
   if [ -f config.status ]; then
     make distclean
   fi
-  ./configure --enable-graphics=cairo --with-name=cairo
+  ./configure --with-name=cairo --enable-graphics=cairo
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1
@@ -241,6 +244,12 @@ if [ x$1 = xcairo ]; then
     gsexitstatus=1
     exit
   fi
+  rm -rf $PACKAGE_DIR/gnustep-cairo
+  mkdir -p $PACKAGE_DIR/gnustep-cairo/GNUstep/System/Library/Libraries
+  mkdir -p $PACKAGE_DIR/gnustep-cairo/GNUstep/System/Library/Makefiles
+  mkdir -p $PACKAGE_DIR/gnustep-cairo/GNUstep/System/Library/Headers
+  mkdir -p $PACKAGE_DIR/gnustep-cairo/GNUstep/System/Tools
+  make DESTDIR=$PACKAGE_DIR/gnustep-cairo install
 fi
 
 if [ x$1 = x -o x$1 = xall -o x$1 = xtheme ]; then

@@ -1,3 +1,20 @@
+2010-07-14  Adam Fedor <fedor@gnu.org>
+
+	* gnustep-system-0.25.1
+	   Rebased msys-1.0.dll. Added rebase.exe to gnustep-msys-system
+	   Replace m4.exe with m4 1.4.14 version
+	* gnustep-devel-1.1.1
+	   Replace mingw autoconf-2.64 with msys autoconf-2.65
+	   (Fixes #30317)
+
+2010-05-14  Adam Fedor <fedor@gnu.org>
+
+	* gnustep-msys-system-0.25.0
+	Change version to match core release
+
+	* gnustep-core-0.25.0
+	New core packages (make 2.4.0, base 1.21.0, gui/back 0.19.0)
+
 2010-04-29  Adam Fedor <fedor@gnu.org>
 
 	* gnustep-msys-system-0.24.3

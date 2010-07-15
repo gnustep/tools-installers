@@ -28,7 +28,7 @@
 SYSTEM_FILES="msysCORE tar vim -m binutils -m mingwrt-3.18-mingw32-dev -m mingwrt-3.18-mingw32-dll -m w32api -m gettext-0.17-1-msys-1.0.11-bin -m gettext-0.17-1-msys-1.0.11-dev -m libcrypt-1.1_1-2-msys-1.0.11-dev -m libcrypt-1.1_1-2-msys-1.0.11-dll-0 -m libiconv-1.13.1-1-msys-1.0.11-bin -m libiconv-1.13.1-1-msys-1.0.11-dev -m libopenssl-0.9.8k-1-msys-1.0.11-dev -m libopenssl-0.9.8k-1-msys-1.0.11-dll-098 -m -m openssl-0.9.8k-1-msys-1.0.11-bin -m pthreads -m zlib -m libxml2 -m jpeg -m libpng -m tiff -m gcc-c++-4.4.0-mingw32-dll gcc-core-4.4.0-mingw32-dll -m gcc-objc-4.4.0-mingw32-dll -m gmp-4.2.4-mingw32-dll -m mpfr-2.4.1-mingw32-dll -m gdb -m libgpg-error -m libgcrypt -m gnutls Console"
 
 GSTEP_FILES="gnustep-make libffi gnustep-objc gnustep-base gnustep-gui gnustep-back WinUXTheme"
-CAIRO_FILES="-m crypt -m freetype -m fontconfig -m pixman -m cairo gnustep-cairo"
+CAIRO_FILES="-m freetype -m fontconfig -m pixman -m cairo gnustep-cairo"
 DEV_FILES="-m gcc-c++-4.4.0-mingw32-bin -m gcc-core-4.4.0-mingw32-bin -m gcc-objc-4.4.0-mingw32-bin perl autoconf cvs libtool zlib libminires openssh svn glib pkg-config"
 
 # Pick the package we are making

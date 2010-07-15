@@ -202,6 +202,7 @@ if [ x$2 = xall -o x$2 = xlibffi ]; then
     exit
   fi
   make install
+  mv /GNUstep/System/Library/bin/*dll /GNUstep/System/Tools
   rm -rf $PACKAGE_DIR/libffi
   mkdir -p $PACKAGE_DIR/libffi
   mkdir -p $PACKAGE_DIR/libffi/GNUstep/System/Tools
@@ -267,7 +268,7 @@ if [ x$2 = x -o x$2 = xall -o x$2 = xbase ]; then
   if [ -f config.status ]; then
     make distclean
   fi
-  ./configure --disable-xslt
+  ./configure --disable-xslt --with-installation-domain=SYSTEM
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1
@@ -358,8 +359,8 @@ fi
 if [ x$2 = xcairo ]; then
 
   # Make sure to install precompiled pacakages:
-  # crypt, glib, (pkg-config, perl from the devel package)
   # FIXME: bug in freetype - have to type make manually?!?!?!
+  # FIXME: bug in cairo - need to add -lpthread to src/Makefile (?_LIBS)
 
   if [ x$3 = xall ]; then
     packages="freetype fontconfig pixman cairo"

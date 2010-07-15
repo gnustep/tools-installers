@@ -9,7 +9,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GNUstep MSYS Windows System"
-!define PRODUCT_VERSION "0.24.3"
+!define PRODUCT_VERSION "0.25.1"
 !define PRODUCT_PUBLISHER "GNUstep"
 !define PRODUCT_WEB_SITE "http://www.gnustep.org"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GNUstep"
@@ -61,7 +61,7 @@ var ICONS_GROUP
 !insertmacro MUI_LANGUAGE "English"
 
 ; Reserve files (FIXME: Not sure if I need this anymore)
-ReserveFile '${NSISDIR}\Plugins\InstallOptions.dll'
+;ReserveFile '${NSISDIR}\Plugins\InstallOptions.dll'
 
 ; MUI end ------
 
@@ -79,6 +79,7 @@ Section "msysCORE" SEC01
   File "gnustep-system-README.rtf"
   ; Files from msysCORE-1.0.14-bin.tar.gz
   SetOutPath "$INSTDIR\bin"
+  File "C:\GNUstep-devel\1.0.13\bin\rebase.exe"
   File "C:\GNUstep-devel\1.0.13\bin\awk"
   File "C:\GNUstep-devel\1.0.13\bin\basename.exe"
   File "C:\GNUstep-devel\1.0.13\bin\bash.exe"
@@ -119,6 +120,7 @@ Section "msysCORE" SEC01
   File "C:\GNUstep-devel\1.0.13\bin\install.exe"
   File "C:\GNUstep-devel\1.0.13\bin\join.exe"
   File "C:\GNUstep-devel\1.0.13\bin\less.exe"
+  File "C:\GNUstep-devel\1.0.13\bin\libW11.dll"
   File "C:\GNUstep-devel\1.0.13\bin\ln.exe"
   File "C:\GNUstep-devel\1.0.13\bin\lnkcnv"
   File "C:\GNUstep-devel\1.0.13\bin\ls.exe"
@@ -167,6 +169,7 @@ Section "msysCORE" SEC01
   File "C:\GNUstep-devel\1.0.13\etc\fstab.sample"
   File "C:\GNUstep-devel\1.0.13\etc\inputrc.default"
   File "C:\GNUstep-devel\1.0.13\etc\profile"
+  File "C:\GNUstep-devel\1.0.13\etc\termcap"
   SetOutPath "$INSTDIR"
   File "C:\GNUstep-devel\1.0.13\m.ico"
   File "C:\GNUstep-devel\1.0.13\msys.bat"
@@ -2109,7 +2112,6 @@ Section Uninstall
   Delete "$INSTDIR\bin\mv.exe"
   Delete "$INSTDIR\bin\msysmnt.exe"
   Delete "$INSTDIR\bin\msysinfo"
-  Delete "$INSTDIR\bin\msys-bz2-1.dll"
   Delete "$INSTDIR\bin\msys-1.0.dll"
   Delete "$INSTDIR\bin\mount"
   Delete "$INSTDIR\bin\mkdir.exe"
@@ -2120,6 +2122,7 @@ Section Uninstall
   Delete "$INSTDIR\bin\lzma.exe"
   Delete "$INSTDIR\bin\ls.exe"
   Delete "$INSTDIR\bin\lnkcnv"
+  Delete "$INSTDIR\bin\libW11.dll"
   Delete "$INSTDIR\bin\ln.exe"
   Delete "$INSTDIR\bin\less.exe"
   Delete "$INSTDIR\bin\join.exe"

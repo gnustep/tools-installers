@@ -8,7 +8,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GNUstep Windows Developer"
-!define PRODUCT_VERSION "1.1.0"
+!define PRODUCT_VERSION "1.1.1"
 !define PRODUCT_PUBLISHER "GNUstep"
 !define PRODUCT_WEB_SITE "http://www.gnustep.org"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GNUstep"
@@ -6119,15 +6119,22 @@ SectionEnd
 
 Section "autoconf" SEC05
   SectionIn RO
-  ; Files from autoconf2.5-2.64-1-mingw32-bin.tar.gz
+  ; Files from autoconf-2.65-1-msys-1.0.13-bin.tar.gz
   SetOutPath "$INSTDIR\bin"
-  File "C:\GNUstep-devel\1.0.13\bin\autoconf-2.64"
-  File "C:\GNUstep-devel\1.0.13\bin\autoheader-2.64"
-  File "C:\GNUstep-devel\1.0.13\bin\autom4te-2.64"
-  File "C:\GNUstep-devel\1.0.13\bin\autoreconf-2.64"
-  File "C:\GNUstep-devel\1.0.13\bin\autoscan-2.64"
-  File "C:\GNUstep-devel\1.0.13\bin\autoupdate-2.64"
-  File "C:\GNUstep-devel\1.0.13\bin\ifnames-2.64"
+  File "C:\GNUstep-devel\1.0.13\bin\autoconf"
+  File "C:\GNUstep-devel\1.0.13\bin\autoconf-2.65"
+  File "C:\GNUstep-devel\1.0.13\bin\autoheader"
+  File "C:\GNUstep-devel\1.0.13\bin\autoheader-2.65"
+  File "C:\GNUstep-devel\1.0.13\bin\autom4te"
+  File "C:\GNUstep-devel\1.0.13\bin\autom4te-2.65"
+  File "C:\GNUstep-devel\1.0.13\bin\autoreconf"
+  File "C:\GNUstep-devel\1.0.13\bin\autoreconf-2.65"
+  File "C:\GNUstep-devel\1.0.13\bin\autoscan"
+  File "C:\GNUstep-devel\1.0.13\bin\autoscan-2.65"
+  File "C:\GNUstep-devel\1.0.13\bin\autoupdate"
+  File "C:\GNUstep-devel\1.0.13\bin\autoupdate-2.65"
+  File "C:\GNUstep-devel\1.0.13\bin\ifnames"
+  File "C:\GNUstep-devel\1.0.13\bin\ifnames-2.65"
   SetOutPath "$INSTDIR\share\autoconf\autoconf"
   File "C:\GNUstep-devel\1.0.13\share\autoconf\autoconf\autoconf.m4"
   File "C:\GNUstep-devel\1.0.13\share\autoconf\autoconf\autoconf.m4f"
@@ -6586,7 +6593,7 @@ Section "svn" SEC11
   File "C:\GNUstep-devel\1.0.13\share\locale\de\LC_MESSAGES\subversion.mo"
 SectionEnd
 
-Section "glib" SEC012
+Section "glib" SEC12
   SectionIn RO
   ; Files from glib-2.24.0-2_win32.tar.gz
   SetOutPath "$INSTDIR\mingw\share\locale\zh_TW\LC_MESSAGES"
@@ -12396,13 +12403,20 @@ Section Uninstall
   Delete "$INSTDIR\share\autoconf\autoconf\autoheader.m4"
   Delete "$INSTDIR\share\autoconf\autoconf\autoconf.m4f"
   Delete "$INSTDIR\share\autoconf\autoconf\autoconf.m4"
-  Delete "$INSTDIR\bin\ifnames-2.64"
-  Delete "$INSTDIR\bin\autoupdate-2.64"
-  Delete "$INSTDIR\bin\autoscan-2.64"
-  Delete "$INSTDIR\bin\autoreconf-2.64"
-  Delete "$INSTDIR\bin\autom4te-2.64"
-  Delete "$INSTDIR\bin\autoheader-2.64"
-  Delete "$INSTDIR\bin\autoconf-2.64"
+  Delete "$INSTDIR\bin\ifnames-2.65"
+  Delete "$INSTDIR\bin\ifnames"
+  Delete "$INSTDIR\bin\autoupdate-2.65"
+  Delete "$INSTDIR\bin\autoupdate"
+  Delete "$INSTDIR\bin\autoscan-2.65"
+  Delete "$INSTDIR\bin\autoscan"
+  Delete "$INSTDIR\bin\autoreconf-2.65"
+  Delete "$INSTDIR\bin\autoreconf"
+  Delete "$INSTDIR\bin\autom4te-2.65"
+  Delete "$INSTDIR\bin\autom4te"
+  Delete "$INSTDIR\bin\autoheader-2.65"
+  Delete "$INSTDIR\bin\autoheader"
+  Delete "$INSTDIR\bin\autoconf-2.65"
+  Delete "$INSTDIR\bin\autoconf"
 
   ; Delete list for cvs
   Delete "$INSTDIR\share\cvs\contrib\validate_repo"
@@ -13427,7 +13441,7 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC02} "gcc-core-4.4.0-mingw32-bin"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC03} "gcc-objc-4.4.0-mingw32-bin"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC04} "perl 5.6.1-2"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC05} "autoconf 2.61"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC05} "autoconf 2.65"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC06} "cvs 1.12.13"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC07} "libtool 2.2.7a-2"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC08} "MSYS zlib 1.2.3"
