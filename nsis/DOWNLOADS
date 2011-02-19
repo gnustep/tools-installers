@@ -2,77 +2,77 @@
 Precompile Packages:
 ====================
 www.mingw.org (http://sourceforge.net/projects/mingw/files):
-
-# msys
-binutils-2.20.1-mingw32-bin.tar.gz
-gettext-0.17-1-msys-1.0.11-bin.tar.lzma
-gettext-0.17-1-msys-1.0.11-dev.tar.lzma
-libiconv-1.13.1-1-msys-1.0.11-bin.tar.lzma
-libiconv-1.13.1-1-msys-1.0.11-dev.tar.lzma
-libopenssl-0.9.8k-1-msys-1.0.11-dev.tar.lzma
-libopenssl-0.9.8k-1-msys-1.0.11-dll-098.tar.lzma
-mingwrt-3.17-mingw32-dev.tar.gz
-mingwrt-3.17-mingw32-dll.tar.gz
-msysCORE-1.0.13-bin.tar.gz
-openssl-0.9.8k-1-msys-1.0.11-bin.tar.lzma
-tar-1.22-1-msys-1.0.11-bin.tar.lzma
-vim-7.2-1-msys-1.0.11-bin.tar.lzma
-w32api-3.14-mingw32-dev.tar.gz
-libpthread-2.8.0-3-mingw32-dll-2.tar.lzma
-pthreads-w32-2.8.0-3-mingw32-dev.tar.lzma
-m4-1.4.14-1-msys-1.0.13-bin (Replace m4 in msysCORE)
-
-gmp-4.2.4-mingw32-dll.tar.gz
-mpfr-2.4.1-mingw32-dll.tar.gz
-gcc-c++-4.4.0-mingw32-bin.tar.gz
-gcc-c++-4.4.0-mingw32-dll.tar.gz
-gcc-core-4.4.0-mingw32-bin.tar.gz
-gcc-core-4.4.0-mingw32-dll.tar.gz
-gcc-objc-4.4.0-mingw32-bin.tar.gz
-gcc-objc-4.4.0-mingw32-dll.tar.gz
-
-# For ssh/cvs and also cairo
-crypt-1.1_1-2-msys-1.0.11-bin.tar.lzma
+Installed via mingw-get:
+msys-base
+msys-w32api
+msys-binutils
+msys-vim
+msys-gzip
+msys-crypt 
+msys-libcrypt 
+#msys-openssl (installs in /, but we need it in /mingw)
+mingw32-mingwrt
+mingw32-gettext
+mingw32-libiconv
+mingw32-pthreads-w32
+mingw32-zlib
+mingw32-gcc (dlls only, reset go in -dev)
+mingw32-gcc-g++ (dlls)
+mingw32-gcc-objc (dlls)
+mingw32-gdb
 
 # Other packages
 Console2
+openssl
+libopenssl
+
+# Compiled from source
+libxml2 jpeg tiff libpng libgpg-error libgcrypt gnutls icu libsndfile labao
 
 From Source:
 ============
-www.mingw.org:  
-  zlib-1.2.3
-
 ftp://xmlsoft.org/libxml2: 
   libxml2-2.7.6.tar.gz
   # libxslt-1.1.24.tar.gz (Bad, do not install)
 http://www.ijg.org/files/: jpeg-6b
 http://www.libpng.org/pub/png/libpng.html: libpng-1.2.29
 ftp://ftp.remotesensing.org/pub/libtiff: tiff-3.8.2
-
 ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.4.3.tar.gz
 ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.7.tar.gz
 http://ftp.gnu.org/gnu/gnutls/gnutls-2.6.3.tar.bz2
 
+libicu:
+http://download.icu-project.org/files/icu4c/4.6/icu4c-4_6-src.zip
+http://devs.openttd.org/~terkhen/libicu/libicu_4_6_mingw32.diff
+http://devs.openttd.org/~terkhen/libicu/libicu_reduce_icudata_size.diff
+
 Devel Package
 =============
-http://www.gtk.org/download-windows.html
-  glib 2.18.1
-  pkg-config
+Installed via mingw-get:
+mingw32-autoconf
+  (brings in perl and m4)
+mingw32-libtool
+msys-cvs
+msys-minires
+msys-openssh
 
+Installed from packages:
 www.mingw.org/sourceforge:
-  perl-5.6.1
-  cvs-1.11.22-MSYS-1.0.11-1-bin
-  zlib-1.2.3-MSYS-1.0.11-1
-  minires-1.01-1-MSYS-1.0.11-1
-  openssh-4.7p1-MSYS-1.0.11-1-bin
+  glib
   pkg-config 0.23-2
   
-???:
-  svn-win32-1.5.5
+http://sourceforge.net/projects/win32svn/files/:
+  svn-win32-1.X.X
 
-ftp.gnu.org:
-  autoconf
-  libtool
+GNUstep core package:
+====================
+gnustep-make
+libffi
+gnustep-objc
+gnustep-base
+gnustep-gui
+gnustep-back
+WinUXTheme
 
 Cairo Precompiled:
 ===================

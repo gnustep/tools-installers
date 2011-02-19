@@ -25,7 +25,7 @@ if [ x$1 = xall -o x$1 = xmake ]; then
   if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
-  ./configure --prefix=/GNUstep --with-config-file=/GNUstep/GNUstep.conf
+  ./configure CFLAGS="-m32 -march=i386" --prefix=/GNUstep --with-config-file=/GNUstep/GNUstep.conf
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1
@@ -73,7 +73,7 @@ fi
   . /GNUstep/System/Library/Makefiles/GNUstep.sh
   
 #
-# GNUstep objc
+# GNUstep objc (libobjc)
 #
 if [ x$1 = x -o x$1 = xall -o x$1 = xobjc ]; then
   echo "========= Making objc  ========="
@@ -89,7 +89,7 @@ if [ x$1 = x -o x$1 = xall -o x$1 = xobjc ]; then
   fi
   make install
   # strip the dll
-  strip /GNUstep/System/Tools/objc-1.dll
+  strip /GNUstep/System/Tools/objc-?.dll
   rm -rf $PACKAGE_DIR/gnustep-objc
   mkdir -p $PACKAGE_DIR/gnustep-objc/GNUstep/System/Library/Libraries
   mkdir -p $PACKAGE_DIR/gnustep-objc/GNUstep/System/Library/Headers
@@ -110,7 +110,7 @@ if [ x$1 = x -o x$1 = xall -o x$1 = xmake ]; then
   if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
-  ./configure --prefix=/GNUstep --with-config-file=/GNUstep/GNUstep.conf
+  ./configure CFLAGS="-m32 -march=i386" --prefix=/GNUstep --with-config-file=/GNUstep/GNUstep.conf
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1
@@ -136,7 +136,7 @@ if [ x$1 = x -o x$1 = xall -o x$1 = xbase ]; then
   if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
-  ./configure --with-installation-domain=SYSTEM
+  ./configure --with-installation-domain=SYSTEM --disable-xslt
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1

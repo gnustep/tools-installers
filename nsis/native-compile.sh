@@ -27,6 +27,9 @@ make_package()
     patch -N -p1 < ../../jpeg-6b-mingw.patch
   elif [ $PACKAGE = zlib ]; then
     patch -N -p1 < ../../zlib-1.2.3-mingw.patch
+  elif [ $PACKAGE = icu ]; then
+    #patch -N -p1 -i < ../../icu4c-4_6-mingw-gnustep.diff
+    cd source
   fi
   echo "Configuring $PACKAGE"
   if [ $PACKAGE != zlib -a $PACKAGE != pthread ]; then
@@ -93,7 +96,7 @@ make_package()
 # Dependancies
 #
 if [ x$1 != xgnustep ]; then
-  packages="pthread zlib libxml2 jpeg tiff libpng libgpg-error libgcrypt gnutls"
+  packages="libxml2 jpeg tiff libpng libgpg-error libgcrypt gnutls icu libsndfile libao"
   if [ x$1 != x ]; then
     packages=$*
   fi
@@ -103,6 +106,13 @@ if [ x$1 != xgnustep ]; then
     PACKAGE_CONFIG=
     if [ $PACKAGE = pthread ]; then
       PACKAGE_CONFIG=--with-threads=win32
+    fi
+    if [ $PACKAGE = icu ]; then
+      PACKAGE_CONFIG="--libdir=/mingw/bin --disable-strict"
+    fi
+    if [ $PACKAGE = libsndfile ]; then
+      #PACKAGE_CONFIG="--disable-alsa --disable-jack --disable-sqlite --disable-shave"
+      PACKAGE_CONFIG=--disable-shave
     fi
     make_package
   done

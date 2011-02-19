@@ -1,3 +1,18 @@
+2011-02-16  Adam Fedor <fedor@gnu.org>
+
+	* gnustep-msys-system-0.27.0
+	  Completely new mingw installation based on the mingw-get package 
+	manager. Files are now installed in different locations to better 
+	match the MinGW default layout. Although as a practical matter this 
+	doesn't change much, as the files can still be accessed the same way 
+	inside the msys shell, due to mount points. And files locations don't 
+	matter much anyway when used with GNUstep apps. Also added libao, 
+	libsndfile and icu libraries.
+	* gnustep-core-0.27.0
+	  Updated snapshots of the core libraries
+	* gnustep-devel-1.3.0
+	  Updated to match msys-system package
+
 2010-07-14  Adam Fedor <fedor@gnu.org>
 
 	* gnustep-system-0.25.1

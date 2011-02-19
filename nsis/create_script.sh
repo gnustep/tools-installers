@@ -25,11 +25,10 @@
 #
 
 # Packages. The -m before the name means it goes in the mingw subdir
-SYSTEM_FILES="msysCORE tar vim -m binutils -m mingwrt-3.18-mingw32-dev -m mingwrt-3.18-mingw32-dll -m w32api -m gettext-0.17-1-msys-1.0.11-bin -m gettext-0.17-1-msys-1.0.11-dev -m libcrypt-1.1_1-2-msys-1.0.11-dev -m libcrypt-1.1_1-2-msys-1.0.11-dll-0 -m libiconv-1.13.1-1-msys-1.0.11-bin -m libiconv-1.13.1-1-msys-1.0.11-dev -m libopenssl-0.9.8k-1-msys-1.0.11-dev -m libopenssl-0.9.8k-1-msys-1.0.11-dll-098 -m -m openssl-0.9.8k-1-msys-1.0.11-bin -m pthreads -m zlib -m libxml2 -m jpeg -m libpng -m tiff -m gcc-c++-4.4.0-mingw32-dll gcc-core-4.4.0-mingw32-dll -m gcc-objc-4.4.0-mingw32-dll -m gmp-4.2.4-mingw32-dll -m mpfr-2.4.1-mingw32-dll -m gdb -m libgpg-error -m libgcrypt -m gnutls Console"
-
+SYSTEM_FILES="Console -m libxml2 -m jpeg -m libpng -m tiff -m libgpg-error -m libgcrypt -m gnutls -m icu -m libao -m libsndfile"
 GSTEP_FILES="gnustep-make libffi gnustep-objc gnustep-base gnustep-gui gnustep-back WinUXTheme"
 CAIRO_FILES="-m freetype -m fontconfig -m pixman -m cairo gnustep-cairo"
-DEV_FILES="-m gcc-c++-4.4.0-mingw32-bin -m gcc-core-4.4.0-mingw32-bin -m gcc-objc-4.4.0-mingw32-bin perl autoconf cvs libtool zlib libminires openssh svn glib pkg-config"
+DEV_FILES="svn -m glib -m pkg-config"
 
 # Pick the package we are making
 PACKAGES=
@@ -55,6 +54,10 @@ if [ x$1 = xlibxml2  ]; then
   PACKAGES="-m libxml2"
   INSTALLER="gnustep-libxml2"
 fi
+if [ x$1 = xlist  ]; then
+  PACKAGES=`cat $2`
+  INSTALLER="gnustep-`basename $2 _names.list`"
+fi
 if [ x"$INSTALLER" = x ]; then
   echo No package named. Use one of: system, core, dev
   exit 0
@@ -70,6 +73,10 @@ for package in $PACKAGES; do
     args="$ARGS -m"
     continue;
   fi
+  echo $package |  grep -q msys
+  if [ $? = 0 ]; then
+    args="$ARGS --msys"
+  fi
   ./file_lists.sh $args $package
   args=$ARGS
 done
@@ -84,6 +91,7 @@ for package in $PACKAGES; do
   if test $package = -m; then
     continue;
   fi
+  package=`basename $package`
   echo "Section \"$package\" SEC0$section" >> $TEMPFILE
   echo "  SectionIn RO" >> $TEMPFILE
   cat $TEMPFILE $package-files.txt > $TEMPFILE-1
@@ -102,6 +110,7 @@ for package in $PACKAGES; do
   if test $package = -m; then
     continue;
   fi
+  package=`basename $package`
   cat $TEMPFILE $package-delete.txt > $TEMPFILE-1
   mv $TEMPFILE-1 $TEMPFILE
   echo "" >> $TEMPFILE
@@ -119,6 +128,7 @@ for package in $REV_PACKAGES; do
   if test $package = -m; then
     continue;
   fi
+  package=`basename $package`
   cat $TEMPFILE $package-rmdir.txt > $TEMPFILE-1
   mv $TEMPFILE-1 $TEMPFILE
   echo "" >> $TEMPFILE
@@ -132,6 +142,7 @@ for package in $PACKAGES; do
   if test $package = -m; then
     continue;
   fi
+  package=`basename $package`
   rm -f $package-files.txt
   rm -f $package-delete.txt
   rm -f $package-rmdir.txt

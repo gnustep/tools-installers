@@ -34,7 +34,7 @@ DISTDIR=$SRCDIR/sources/mingw/
 PACKAGEDIR=$SRCDIR/packages/
 # Location where the MinGW packages are installed (for when we
 # compile the nsis script).
-INSTALLDIR="C:\\GNUstep-devel\\1.0.13"
+INSTALLDIR="C:\\gnustepdev"
 # Extra install dir to add on to standard INSTALLDIR
 EXTRADIR=
 # Remove all the doc files
@@ -42,12 +42,15 @@ REMOVEDOC=no
 # User install only (dlls only)
 USER=no
 
+EXTRADIR=""
 while test $# != 0
 do
   gs_option=
   case $1 in
     --mingw | -m)
-      EXTRADIR="\\mingw";;
+      EXTRADIR="";;
+    --msys | -s)
+      EXTRADIR="\\msys\\1.0";;
     --nodoc | -d)
       REMOVEDOC=yes;;
     --user | -u)
@@ -99,16 +102,21 @@ for file in $ALLFILES; do
       popd
     else
       # This is an archive
-      echo $fullname | grep -q gz
+      echo $fullname | grep -q lzma
       if [ $? = 1 ]; then 
-        echo $fullname | grep -q zip
+        echo $fullname | grep -q bz2
         if [ $? = 1 ]; then 
-          files=`zip -l $fullname`
+          echo $fullname | grep -q gz
+          if [ $? = 1 ]; then 
+            files=`unzip -l $fullname`
+	  else
+            files=`tar -ztf $fullname`
+	  fi
 	else
           files=`tar -jtf $fullname`
 	fi
       else
-        files=`tar -ztf $fullname`
+       files=`lzmadec $fullname | tar -tf -`
       fi
     fi
     cdir="nosuchdirectory"
@@ -140,7 +148,7 @@ for file in $ALLFILES; do
 	  echo "  $i" >> files-not-added.txt
         fi
       fi
-      if [ $cdir != $newdir ]; then
+      if [ "$cdir" != "$newdir" ]; then
         cdir=$newdir
         windir=`echo $newdir | tr '/' '\\'`
 	if [ $windir != "." -a $REMOVEIT = no ]; then

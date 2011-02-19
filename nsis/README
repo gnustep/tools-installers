@@ -9,11 +9,13 @@ something from scratch.
 
 Here's a basic overview of what needs to be done currently:
 
-1. Download compiled packages from www.mingw.org and put them in the
-"sources/mingw" directory (still tar'd and compressed). Install them as well
-(on Windows and the packages directory). See DOWNLOADS for a list
+1. Use mingw-get to install a basic mingw system (mingw-get might require
+a basic mingw system to begin with, so do that first, using a mingw
+installer).  Install all the required packages listed in DOWNLOADS
 
-Use native-mingw-install.sh  to help with this.
+1a. Special note - we need openssl, but the only package installs that
+in / instead of /mingw, where we need it.  It's easiest to just download
+the openssl package and untar it in /mingw rather than using mingw-get.
 
 2. Download source packages from wherever they are located and put them
 in the "sources" directory. Compile them on Windows or cross-compile them.
@@ -21,19 +23,20 @@ Install them. Also install all the files to a separate install directory
 for each package in the "pakages" directory. For instance, you might
 put the libxml package in the packages directory like this:
 
-CURRENT=`pwd`
-cd $CURRENT/sources/libxml2-2.6.30
-mkdir -p $CURRENT/packages/libxml2
-make DESTDIR=$CURRENT/packages/libxml2 install
-
 For my particular setup, I use the following scripts to native compile all
 the packages and create the package lists in the packages directory.  
 
-native-compile.sh (or svn-compile.sh)
+native-compile.sh (or svn-compile.sh for the latest gnustep stuff)
 
 3. Use the create_script.sh script to generate the file lists needed for the
 installer. Use the argument "system", or "core" to generate the 
-lists for the indicated installer.
+lists for the indicated installer. Currently:
+
+./create_script.sh list msys-system_names.list
+./create_script.sh system
+./create_script.sh core
+./create_script.sh list devel_names.list
+./create_script.sh devel
 
 4. Replace the file lists in the current installer scripts with the new
 file lists.  You need to edit the RMDir lines to make sure dirs
@@ -42,42 +45,4 @@ are being deleted in the proper order and not multiple times.
 5. Run the NSIS installer compiler to generate the package. You can get it
 from nsis.sourceforge.net (There is even a version for Unix, but they require
 a cross compiler and don't support plugins).
-
-Installer Packages
-===================
-
-GNUstep System:
----------------
-msysCORE
-binutils
-mingw-runtime
-w32api
-gcc-core
-gcc-objc
-gcc-g++
-gdb
-
-GNUstep Depend (Now part of System):
----------------
-gettext
-libiconv
-zlib
-libxml
-jpeg
-libpng
-tiff
-
-libgpg-error
-libgcrypt
-gnutls
-
-GNUstep Core:
-------------
-gnustep-make
-ffcall
-gnustep-objc
-gnustep-base
-gnustep-gui
-gnustep-back
-WinUXTheme
 
