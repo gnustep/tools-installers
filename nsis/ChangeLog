@@ -1,3 +1,13 @@
+2011-04-20  Adam Fedor <fedor@gnu.org>
+
+	* gnustep-msys-system-0.27.1
+	  Updated openssl library to version 1.0.0 to fix incompatibility
+	  with SSH.
+
+	* gnustep-core-0.28.0
+	  Updated to include latest core release (Make 2.6.0, Base 1.22.0
+	  Gui 0.20.0)
+
 2011-02-16  Adam Fedor <fedor@gnu.org>
 
 	* gnustep-msys-system-0.27.0

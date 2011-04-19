@@ -25,7 +25,7 @@
 #
 
 # Packages. The -m before the name means it goes in the mingw subdir
-SYSTEM_FILES="Console -m libxml2 -m jpeg -m libpng -m tiff -m libgpg-error -m libgcrypt -m gnutls -m icu -m libao -m libsndfile"
+SYSTEM_FILES="mingw-get Console -m libopenssl-1.0.0-1-msys-1.0.13-dev -m libopenssl-1.0.0-1-msys-1.0.13-dll -m openssl -m libxml2 -m jpeg -m libpng -m tiff -m libgpg-error -m libgcrypt -m gnutls -m icu -m libao -m libsndfile"
 GSTEP_FILES="gnustep-make libffi gnustep-objc gnustep-base gnustep-gui gnustep-back WinUXTheme"
 CAIRO_FILES="-m freetype -m fontconfig -m pixman -m cairo gnustep-cairo"
 DEV_FILES="svn -m glib -m pkg-config"

@@ -9,7 +9,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GNUstep MSYS Windows System"
-!define PRODUCT_VERSION "0.27.0"
+!define PRODUCT_VERSION "0.27.1"
 !define PRODUCT_PUBLISHER "GNUstep"
 !define PRODUCT_WEB_SITE "http://www.gnustep.org"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GNUstep"
@@ -3206,15 +3206,28 @@ Section "Console" SEC17
   File "C:\gnustepdev\msys\1.0\bin\FreeImagePlus.dll"
 SectionEnd
 
+Section "mingw-get" SEC18
+  SectionIn RO
+  ; Files from mingw-get-0.2-mingw32-alpha-2-bin.tar.gz
+  SetOutPath "$INSTDIR\bin"
+  File "C:\gnustepdev\bin\mingw-get.exe"
+  SetOutPath "$INSTDIR\libexec\mingw-get"
+  File "C:\gnustepdev\libexec\mingw-get\mingw-get-0.dll"
+  File "C:\gnustepdev\libexec\mingw-get\lastrites.exe"
+  File "C:\gnustepdev\libexec\mingw-get\gui.exe"
+  SetOutPath "$INSTDIR\var\lib\mingw-get\data"
+  File "C:\gnustepdev\var\lib\mingw-get\data\defaults.xml"
+SectionEnd
+
 ;-------------------------------------------------------------------
 ; Extra Library dependancies
 ;--------------------------------------------------------------------
 SectionGroup "Libraries" LIB_SEC
 
-Section "libopenssl-0.9.8k-1-msys-1.0.11" SEC18
+Section "libopenssl-1.0.0-1-msys-1.0.13-dev" SEC19
   SectionIn RO
   ; Install in mingw despite the name
-  ; Files from libopenssl-0.9.8k-1-msys-1.0.11-dev.tar.gz
+  ; Files from libopenssl-1.0.0-1-msys-1.0.13-dev.tar.lzma
   SetOutPath "$INSTDIR\include\openssl"
   File "C:\gnustepdev\include\openssl\aes.h"
   File "C:\gnustepdev\include\openssl\asn1.h"
@@ -3224,7 +3237,9 @@ Section "libopenssl-0.9.8k-1-msys-1.0.11" SEC18
   File "C:\gnustepdev\include\openssl\blowfish.h"
   File "C:\gnustepdev\include\openssl\bn.h"
   File "C:\gnustepdev\include\openssl\buffer.h"
+  File "C:\gnustepdev\include\openssl\camellia.h"
   File "C:\gnustepdev\include\openssl\cast.h"
+  File "C:\gnustepdev\include\openssl\cms.h"
   File "C:\gnustepdev\include\openssl\comp.h"
   File "C:\gnustepdev\include\openssl\conf.h"
   File "C:\gnustepdev\include\openssl\conf_api.h"
@@ -3247,9 +3262,9 @@ Section "libopenssl-0.9.8k-1-msys-1.0.11" SEC18
   File "C:\gnustepdev\include\openssl\krb5_asn.h"
   File "C:\gnustepdev\include\openssl\kssl.h"
   File "C:\gnustepdev\include\openssl\lhash.h"
-  File "C:\gnustepdev\include\openssl\md2.h"
   File "C:\gnustepdev\include\openssl\md4.h"
   File "C:\gnustepdev\include\openssl\md5.h"
+  File "C:\gnustepdev\include\openssl\modes.h"
   File "C:\gnustepdev\include\openssl\objects.h"
   File "C:\gnustepdev\include\openssl\obj_mac.h"
   File "C:\gnustepdev\include\openssl\ocsp.h"
@@ -3261,26 +3276,26 @@ Section "libopenssl-0.9.8k-1-msys-1.0.11" SEC18
   File "C:\gnustepdev\include\openssl\pkcs12.h"
   File "C:\gnustepdev\include\openssl\pkcs7.h"
   File "C:\gnustepdev\include\openssl\pqueue.h"
-  File "C:\gnustepdev\include\openssl\pq_compat.h"
   File "C:\gnustepdev\include\openssl\rand.h"
   File "C:\gnustepdev\include\openssl\rc2.h"
   File "C:\gnustepdev\include\openssl\rc4.h"
   File "C:\gnustepdev\include\openssl\ripemd.h"
   File "C:\gnustepdev\include\openssl\rsa.h"
   File "C:\gnustepdev\include\openssl\safestack.h"
+  File "C:\gnustepdev\include\openssl\seed.h"
   File "C:\gnustepdev\include\openssl\sha.h"
   File "C:\gnustepdev\include\openssl\ssl.h"
   File "C:\gnustepdev\include\openssl\ssl2.h"
   File "C:\gnustepdev\include\openssl\ssl23.h"
   File "C:\gnustepdev\include\openssl\ssl3.h"
   File "C:\gnustepdev\include\openssl\stack.h"
-  File "C:\gnustepdev\include\openssl\store.h"
   File "C:\gnustepdev\include\openssl\symhacks.h"
   File "C:\gnustepdev\include\openssl\tls1.h"
-  File "C:\gnustepdev\include\openssl\tmdiff.h"
+  File "C:\gnustepdev\include\openssl\ts.h"
   File "C:\gnustepdev\include\openssl\txt_db.h"
   File "C:\gnustepdev\include\openssl\ui.h"
   File "C:\gnustepdev\include\openssl\ui_compat.h"
+  File "C:\gnustepdev\include\openssl\whrlpool.h"
   File "C:\gnustepdev\include\openssl\x509.h"
   File "C:\gnustepdev\include\openssl\x509v3.h"
   File "C:\gnustepdev\include\openssl\x509_vfy.h"
@@ -3289,31 +3304,32 @@ Section "libopenssl-0.9.8k-1-msys-1.0.11" SEC18
   File "C:\gnustepdev\lib\libcrypto.dll.a"
   File "C:\gnustepdev\lib\libssl.a"
   File "C:\gnustepdev\lib\libssl.dll.a"
-  SetOutPath "$INSTDIR\lib\pkgconfig"
+   SetOutPath "$INSTDIR\lib\pkgconfig"
   File "C:\gnustepdev\lib\pkgconfig\libcrypto.pc"
   File "C:\gnustepdev\lib\pkgconfig\libssl.pc"
   File "C:\gnustepdev\lib\pkgconfig\openssl.pc"
-  ; Files from libopenssl-0.9.8k-1-msys-1.0.11-dll-098.tar.gz
+  ; Files from libopenssl-1.0.0-1-msys-1.0.13-dll-100.tar.lzma
   SetOutPath "$INSTDIR\bin"
-  File "C:\gnustepdev\bin\msys-crypto-0.9.8.dll"
-  File "C:\gnustepdev\bin\msys-ssl-0.9.8.dll"
-  SetOutPath "$INSTDIR\lib\openssl\engines-0.9.8"
-  File "C:\gnustepdev\lib\openssl\engines-0.9.8\lib4758cca.so"
-  File "C:\gnustepdev\lib\openssl\engines-0.9.8\libaep.so"
-  File "C:\gnustepdev\lib\openssl\engines-0.9.8\libatalla.so"
-  File "C:\gnustepdev\lib\openssl\engines-0.9.8\libcapi.so"
-  File "C:\gnustepdev\lib\openssl\engines-0.9.8\libchil.so"
-  File "C:\gnustepdev\lib\openssl\engines-0.9.8\libcswift.so"
-  File "C:\gnustepdev\lib\openssl\engines-0.9.8\libgmp.so"
-  File "C:\gnustepdev\lib\openssl\engines-0.9.8\libnuron.so"
-  File "C:\gnustepdev\lib\openssl\engines-0.9.8\libsureware.so"
-  File "C:\gnustepdev\lib\openssl\engines-0.9.8\libubsec.so"
+  File "C:\gnustepdev\bin\msys-crypto-1.0.0.dll"
+  File "C:\gnustepdev\bin\msys-ssl-1.0.0.dll"
+  SetOutPath "$INSTDIR\lib\openssl\engines-1.0.0"
+  File "C:\gnustepdev\lib\openssl\engines-1.0.0\lib4758cca.so"
+  File "C:\gnustepdev\lib\openssl\engines-1.0.0\libaep.so"
+  File "C:\gnustepdev\lib\openssl\engines-1.0.0\libatalla.so"
+  File "C:\gnustepdev\lib\openssl\engines-1.0.0\libcapi.so"
+  File "C:\gnustepdev\lib\openssl\engines-1.0.0\libchil.so"
+  File "C:\gnustepdev\lib\openssl\engines-1.0.0\libcswift.so"
+  File "C:\gnustepdev\lib\openssl\engines-1.0.0\libgmp.so"
+  File "C:\gnustepdev\lib\openssl\engines-1.0.0\libgost.so"
+  File "C:\gnustepdev\lib\openssl\engines-1.0.0\libnuron.so"
+  File "C:\gnustepdev\lib\openssl\engines-1.0.0\libpadlock.so"
+  File "C:\gnustepdev\lib\openssl\engines-1.0.0\libsureware.so"
+  File "C:\gnustepdev\lib\openssl\engines-1.0.0\libubsec.so"
 SectionEnd
 
-Section "openssl-0.9.8k-1-msys-1.0.11-bin" SEC19
+Section "openssl" SEC20
   SectionIn RO
-  ; Install in mingw despite the name
-  ; Files from openssl-0.9.8k-1-msys-1.0.11-bin.tar.gz
+  ; Files from openssl-1.0.0-1-msys-1.0.13-bin.tar.lzma
   SetOutPath "$INSTDIR\var\ssl\certs\demo"
   File "C:\gnustepdev\var\ssl\certs\demo\ca-cert.pem"
   File "C:\gnustepdev\var\ssl\certs\demo\dsa-ca.pem"
@@ -3332,6 +3348,7 @@ Section "openssl-0.9.8k-1-msys-1.0.11-bin" SEC19
   File "C:\gnustepdev\var\ssl\misc\c_info"
   File "C:\gnustepdev\var\ssl\misc\c_issuer"
   File "C:\gnustepdev\var\ssl\misc\c_name"
+  File "C:\gnustepdev\var\ssl\misc\tsget"
   SetOutPath "$INSTDIR\var\ssl"
   File "C:\gnustepdev\var\ssl\openssl.cnf"
   SetOutPath "$INSTDIR\bin"
@@ -3339,7 +3356,7 @@ Section "openssl-0.9.8k-1-msys-1.0.11-bin" SEC19
   File "C:\gnustepdev\bin\openssl.exe"
 SectionEnd
 
-Section "libxml2" SEC20
+Section "libxml2" SEC21
   SectionIn RO
   SetOverwrite try
   ; Files from libxml2
@@ -3416,7 +3433,7 @@ Section "libxml2" SEC20
   File "C:\gnustepdev\share\man\man3\libxml.3"
 SectionEnd
 
-Section "jpeg" SEC21
+Section "jpeg" SEC22
   SectionIn RO
   SetOverwrite try
   ; Files from jpeg
@@ -3444,7 +3461,7 @@ Section "jpeg" SEC21
   File "C:\gnustepdev\share\man\man1\wrjpgcom.1"
 SectionEnd
 
-Section "libpng" SEC22
+Section "libpng" SEC23
   SectionIn RO
   SetOverwrite try
   ; Files from libpng
@@ -3476,7 +3493,7 @@ Section "libpng" SEC22
   File "C:\gnustepdev\share\man\man5\png.5"
 SectionEnd
 
-Section "tiff" SEC23
+Section "tiff" SEC24
   SectionIn RO
   SetOverwrite try
   SetOutPath "$INSTDIR\bin"
@@ -3589,7 +3606,7 @@ Section "tiff" SEC23
   File "C:\gnustepdev\share\doc\tiff-3.8.2\VERSION"
 SectionEnd
 
-Section "libgpg-error" SEC24
+Section "libgpg-error" SEC25
   SectionIn RO
   ; Files from libgpg-error
   SetOutPath "$INSTDIR\bin"
@@ -3611,7 +3628,7 @@ Section "libgpg-error" SEC24
   File "C:\gnustepdev\share\common-lisp\source\gpg-error\gpg-error.lisp"
 SectionEnd
 
-Section "libgcrypt" SEC25
+Section "libgcrypt" SEC26
   SectionIn RO
   ; Files from libgcrypt
   SetOutPath "$INSTDIR\bin"
@@ -3634,7 +3651,7 @@ Section "libgcrypt" SEC25
   File "C:\gnustepdev\share\info\gcrypt.info"
 SectionEnd
 
-Section "gnutls" SEC26
+Section "gnutls" SEC27
   SectionIn RO
   ; Files from gnutls
   SetOutPath "$INSTDIR\bin"
@@ -3702,7 +3719,7 @@ Section "gnutls" SEC26
   File "C:\gnustepdev\share\info\gnutls.info-3"
 SectionEnd
 
-Section "icu" SEC27
+Section "icu" SEC28
   SectionIn RO
   ; Files from icu
   SetOutPath "$INSTDIR\bin"
@@ -3946,7 +3963,7 @@ Section "icu" SEC27
   File "C:\gnustepdev\share\man\man8\icupkg.8"
 SectionEnd
 
-Section "libao" SEC28
+Section "libao" SEC29
   SectionIn RO
   ; Files from libao
   SetOutPath "$INSTDIR\bin"
@@ -4003,7 +4020,7 @@ Section "libao" SEC28
   File "C:\gnustepdev\share\man\man5\libao.conf.5"
 SectionEnd
 
-Section "libsndfile" SEC29
+Section "libsndfile" SEC30
   SectionIn RO
   ; Files from libsndfile
   SetOutPath "$INSTDIR\bin"
@@ -4054,19 +4071,20 @@ SectionGroupEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC15} "gdb-7.2-1-mingw32-bin.tar.lzma"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC16} "libgcc-4.5.2-1-mingw32-dll-1.tar.lzma"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC17} "Console"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC18} "mingw-get"
   !insertmacro MUI_DESCRIPTION_TEXT ${LIB_SEC} "Libraries"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC18} "libopenssl-0.9.8k-1-msys-1.0.11"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC19} "openssl-0.9.8k-1-msys-1.0.11-bin"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC20} "libxml2"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC21} "jpeg"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC22} "libpng"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC23} "tiff"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC24} "libgpg-error"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC25} "libgcrypt"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC26} "gnutls"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC27} "icu"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC28} "libao"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC29} "libsndfile"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC19} "libopenssl-0.9.8k-1-msys-1.0.11"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC20} "openssl-0.9.8k-1-msys-1.0.11-bin"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC21} "libxml2"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC22} "jpeg"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC23} "libpng"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC24} "tiff"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC25} "libgpg-error"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC26} "libgcrypt"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC27} "gnutls"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC28} "icu"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC29} "libao"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC30} "libsndfile"
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 Section -AdditionalIcons

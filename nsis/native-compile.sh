@@ -13,7 +13,7 @@
 HOME_DIR=/h/Source/nsis
 PACKAGE_DIR=$HOME_DIR/packages
 SOURCES_DIR=$HOME_DIR/sources
-#GNUSTEP_DIR=/Local/Software/gstep/current
+GNUSTEP_DIR=$HOME_DIR/sources/gstep/current
 
 make_package()
 {
@@ -133,13 +133,13 @@ export GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
 if [ x$2 = xall -o x$2 = xmake ]; then
   echo "========= Making GNUstep Make ========="
   cd $SOURCES_DIR/gstep
-  #rm -rf gnustep-make-*
-  #tar -zxf $GNUSTEP_DIR/gnustep-make-*tar.gz
+  rm -rf gnustep-make-*
+  tar -zxf $GNUSTEP_DIR/gnustep-make-*tar.gz
   cd gnustep-make-*
   if [ -f config.status ]; then
     make distclean
   fi
-  ./configure --prefix=/GNUstep --with-config-file=/GNUstep/GNUstep.conf
+  ./configure --prefix=/GNUstep -with-layout=gnustep --with-config-file=/GNUstep/GNUstep.conf
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1
@@ -153,39 +153,6 @@ fi
   . /GNUstep/System/Library/Makefiles/GNUstep-reset.sh
   . /GNUstep/System/Library/Makefiles/GNUstep.sh
   
-if [ x$2 = xffcall ]; then
-#
-# ffcall (Deprecated)
-#
-  echo "========= Making ffcall ========="
-  cd $SOURCES_DIR/gstep
-  #rm -rf ffcall-*
-  #tar -zxf /Local/Software/gstep/startup/sources/ffcall-*tar.gz
-  cd $SOURCES_DIR/gstep/ffcall-*
-  if [ -f config.status ]; then
-    make distclean
-  fi
-  patch -N -p1 < ../ffcall-config.patch
-  patch -N -p1 < ../ffcall-exec.patch
-  ./configure --prefix=/GNUstep/System --libdir=/GNUstep/System/Library/Libraries --includedir=/GNUstep/System/Library/Headers --enable-shared 
-  gsexitstatus=$?
-  if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
-    gsexitstatus=1
-    exit 1
-  fi
-  make LN=cp LN_S=cp
-  gsexitstatus=$?
-  if [ $gsexitstatus != 0 ]; then
-    gsexitstatus=1
-    exit
-  fi
-  make install
-  rm -rf $PACKAGE_DIR/ffcall
-  mkdir -p $PACKAGE_DIR/ffcall
-  mkdir -p $PACKAGE_DIR/ffcall/GNUstep/System/Library/Libraries
-  make DESTDIR=$PACKAGE_DIR/ffcall install
-fi
-
 if [ x$2 = xall -o x$2 = xlibffi ]; then
 #
 # libffi
@@ -193,7 +160,7 @@ if [ x$2 = xall -o x$2 = xlibffi ]; then
   echo "========= Making libffi ========="
   cd $SOURCES_DIR/gstep
   #rm -rf libffi-*
-  #tar -zxf /Local/Software/gstep/startup/sources/libffi-*tar.gz
+  #tar -zxf $GNUSTEP_DIR/libffi-*tar.gz
   cd $SOURCES_DIR/gstep/libffi-*
   #patch -N -p0 < ../libffi-includes.patch
   if [ -f config.status ]; then
@@ -226,7 +193,7 @@ fi
 if [ x$2 = xall -o x$2 = xobjc ]; then
   echo "========= Making objc  ========="
   cd $SOURCES_DIR/gstep
-  #tar -zxf /Local/Software/gstep/startup/sources/gnustep-objc-*tar.gz
+  tar -zxf $GNUSTEP_DIR/gnustep-objc-*tar.gz
   cd $SOURCES_DIR/gstep/gnustep-objc-*
   make clean
   make
@@ -253,9 +220,9 @@ if [ x$2 = x -o x$2 = xall -o x$2 = xmake ]; then
   echo "========= Making GNUstep Make ========="
   cd $SOURCES_DIR/gstep
   #rm -rf gnustep-make-*
-  #tar -zxf $GNUSTEP_DIR/gnustep-make-*tar.gz
+  tar -zxf $GNUSTEP_DIR/gnustep-make-*tar.gz
   cd gnustep-make-*
-  ./configure --prefix=/GNUstep --with-config-file=/GNUstep/GNUstep.conf
+  ./configure --prefix=/GNUstep -with-layout=gnustep --with-config-file=/GNUstep/GNUstep.conf
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1
@@ -272,8 +239,8 @@ fi
 if [ x$2 = x -o x$2 = xall -o x$2 = xbase ]; then
   echo "========= Making GNUstep Base  ========="
   cd $SOURCES_DIR/gstep
-  #rm -rf gnustep-base-*
-  #tar -zxf $GNUSTEP_DIR/gnustep-base-*tar.gz
+  rm -rf gnustep-base-*
+  tar -zxf $GNUSTEP_DIR/gnustep-base-*tar.gz
   cd gnustep-base-*
   if [ -f config.status ]; then
     make distclean
@@ -304,8 +271,8 @@ fi
 if [ x$2 = x -o x$2 = xall -o x$2 = xgui ]; then
   echo "========= Making GNUstep GUI  ========="
   cd $SOURCES_DIR/gstep
-  #rm -rf gnustep-gui-*
-  #tar -zxf $GNUSTEP_DIR/gnustep-gui-*tar.gz
+  rm -rf gnustep-gui-*
+  tar -zxf $GNUSTEP_DIR/gnustep-gui-*tar.gz
   cd gnustep-gui-*
   if [ -f config.status ]; then
     make distclean
@@ -336,8 +303,8 @@ fi
 if [ x$2 = x -o x$2 = xall -o x$2 = xback ]; then
   echo "========= Making GNUstep Back  ========="
   cd $SOURCES_DIR/gstep
-  #rm -rf gnustep-back-*
-  #tar -zxf $GNUSTEP_DIR/gnustep-back-*tar.gz
+  rm -rf gnustep-back-*
+  tar -zxf $GNUSTEP_DIR/gnustep-back-*tar.gz
   cd gnustep-back-*
   if [ -f config.status ]; then
     make distclean
@@ -360,6 +327,24 @@ if [ x$2 = x -o x$2 = xall -o x$2 = xback ]; then
   mkdir -p $PACKAGE_DIR/gnustep-back/GNUstep/System/Library/Headers
   mkdir -p $PACKAGE_DIR/gnustep-back/GNUstep/System/Tools
   make DESTDIR=$PACKAGE_DIR/gnustep-back install
+fi  
+
+#
+# GNustep WinUXTheme
+#
+if [ x$2 = x -o x$2 = xall -o x$2 = xtheme ]; then
+  echo "========= Making GNUstep WinUXTheme  ========="
+  cd $SOURCES_DIR/gstep-current
+  cd WinUXTheme
+  make install
+  gsexitstatus=$?
+  if [ $gsexitstatus != 0 ]; then
+    gsexitstatus=1
+    exit
+  fi
+  rm -rf $PACKAGE_DIR/WinUXTheme
+  mkdir -p $PACKAGE_DIR/WinUXTheme/GNUstep/System/Library/Libraries/Themes
+  make DESTDIR=$PACKAGE_DIR/WinUXTheme install
 fi  
 
 #
