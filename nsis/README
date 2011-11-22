@@ -7,28 +7,53 @@ and creating installer scripts. This is not really a plug-and-play system -
 significant setup and editing of scripts is necessary if you want to create
 something from scratch.
 
-Here's a basic overview of what needs to be done currently:
+Here's a basic overview of what needs to be done currently to get a package going from scratch. Note
+that if you want to do a major upgrade, it's almost easy to just start over from scratch.  This reduces 
+(but does not eliminate) the chance of odd compilation errors and things that just don't work for
+no reason in particular.
 
-1. Use mingw-get to install a basic mingw system (mingw-get might require
-a basic mingw system to begin with, so do that first, using a mingw
-installer).  Install all the required packages listed in DOWNLOADS
+1. Use mingw-get to install a basic mingw system. From scratch, it might be easiest
+to use the mingw-get-inst GUI installer:
 
-1a. Special note - we need openssl, but the only package installs that
-in / instead of /mingw, where we need it.  It's easiest to just download
-the openssl package and untar it in /mingw rather than using mingw-get.
+http://www.mingw.org/wiki/Getting_Started
 
-2. Download source packages from wherever they are located and put them
-in the "sources" directory. Compile them on Windows or cross-compile them.
-Install them. Also install all the files to a separate install directory
-for each package in the "pakages" directory. For instance, you might
-put the libxml package in the packages directory like this:
+Install everything including the mingw developer tools. See DOWNLOADS for a minimum set of
+packages.  Most are installed already with the installer though.
+
+2. Start msys shell, and install other precompiled packages:
+
+mingw-get install msys-console
+mingw-get install mingw32-libz
+
+2a. Special note - we need openssl and libopenssl, but the only package 
+installs that in / instead of /mingw, where we need it.  It's easiest to just 
+download the msys openssl package and untar it in /mingw. Stupid, I know, but 
+trying to compile openssl from source is a nightmare.
+
+Download: http://sourceforge.net/projects/mingw/files/MSYS/Extension/openssl/
+Install: cd /mingw; lzmadec .../openssl...  | tar -xvf -
+
+3. Edit /etc/fstab and add a /GNUstep mountpoints
+
+#   edit /etc/profile and remove first '.' from PATH
+#   create /bin/vi (shell script to call vim.exe)
+cd ..
+echo "exec vim \"\$@\"" > bin/vi
+mv bin/rxvt.exe bin/rxvt-save.exe
+# edit new msys.bat. Add concole code (see msys.bat in this directory)
+
+4. Download source packages from wherever they are located and put
+them in the "sources/build" directory (See DOWNLOADS for
+locations). Compile them on Windows.  Install them. Also install all
+the files to a separate install directory for each package in the
+"pakages" directory.
 
 For my particular setup, I use the following scripts to native compile all
 the packages and create the package lists in the packages directory.  
 
 native-compile.sh (or svn-compile.sh for the latest gnustep stuff)
 
-3. Use the create_script.sh script to generate the file lists needed for the
+5. Use the create_script.sh script to generate the file lists needed for the
 installer. Use the argument "system", or "core" to generate the 
 lists for the indicated installer. Currently:
 
@@ -38,11 +63,14 @@ lists for the indicated installer. Currently:
 ./create_script.sh list devel_names.list
 ./create_script.sh devel
 
-4. Replace the file lists in the current installer scripts with the new
+Use "find /mingw/var/cache > msys-system_names.list" to create a current list (put developer packages
+in devel_names.list).
+
+6. Replace the file lists in the current installer scripts with the new
 file lists.  You need to edit the RMDir lines to make sure dirs
 are being deleted in the proper order and not multiple times.
 
-5. Run the NSIS installer compiler to generate the package. You can get it
+7. Run the NSIS installer compiler to generate the package. You can get it
 from nsis.sourceforge.net (There is even a version for Unix, but they require
 a cross compiler and don't support plugins).
 

@@ -10,7 +10,6 @@ msys-vim
 msys-gzip
 msys-crypt 
 msys-libcrypt 
-#msys-openssl (installs in /, but we need it in /mingw)
 mingw32-mingwrt
 mingw32-gettext
 mingw32-libiconv
@@ -20,14 +19,17 @@ mingw32-gcc (dlls only, reset go in -dev)
 mingw32-gcc-g++ (dlls)
 mingw32-gcc-objc (dlls)
 mingw32-gdb
+mingw32-autoconf
+
+msys-console
+mingw32-libz
 
 # Other packages
-Console2
 openssl
 libopenssl
 
 # Compiled from source
-libxml2 jpeg tiff libpng libgpg-error libgcrypt gnutls icu libsndfile labao
+libxml2 jpeg tiff libpng libgpg-error libgcrypt p11-kit nettle gnutls icu libsndfile labao
 
 From Source:
 ============
@@ -48,9 +50,7 @@ http://devs.openttd.org/~terkhen/libicu/libicu_reduce_icudata_size.diff
 
 Devel Package
 =============
-Installed via mingw-get:
-mingw32-autoconf
-  (brings in perl and m4)
+Additional to install via mingw-get:
 mingw32-libtool
 msys-cvs
 msys-minires
@@ -90,5 +90,10 @@ http://fontconfig.org/release/
 http://www.cairographics.org/releases/
   pixman 0.18.2
   cairo 1.8.10
+
+old?:
+http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies
+fontconfig-2.4.2-tml-20071015.zip
+
 
 

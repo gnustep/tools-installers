@@ -32,9 +32,11 @@ SRCDIR=`cd $SRCDIR && pwd`
 DISTDIR=$SRCDIR/sources/mingw/
 # Location of compiled packages
 PACKAGEDIR=$SRCDIR/packages/
+# Location of installed packages
+INSTALLPKG=/mingw/var/cache/mingw-get/packages/
 # Location where the MinGW packages are installed (for when we
 # compile the nsis script).
-INSTALLDIR="C:\\gnustepdev"
+INSTALLDIR="C:\\gnustepdev2"
 # Extra install dir to add on to standard INSTALLDIR
 EXTRADIR=
 # Remove all the doc files
@@ -47,8 +49,6 @@ while test $# != 0
 do
   gs_option=
   case $1 in
-    --mingw | -m)
-      EXTRADIR="";;
     --msys | -s)
       EXTRADIR="\\msys\\1.0";;
     --nodoc | -d)
@@ -71,13 +71,16 @@ if [ x$ALLFILES = x ]; then
   ALLFILES="$SYSTEM_MINGW_FILES $SYSTEM_GCC_FILES"
 fi
 
-echo Looking for packages in $PACKAGEDIR and $DISTDIR
+echo Looking for packages in $PACKAGEDIR and $DISTDIR and $INSTALLPKG
 echo Looking for packages $ALLFILES
 for file in $ALLFILES; do
   if [ `dirname $file` = "." ]; then
     fullname=`find $DISTDIR -name $file\* -prune`
     if [ "x$fullname" = x ]; then
       fullname=`find $PACKAGEDIR -name $file\* -prune`
+    fi
+    if [ "x$fullname" = x ]; then
+      fullname=`find $INSTALLPKG -name $file\* -prune`
     fi
   else
     fullname=$file
@@ -104,7 +107,7 @@ for file in $ALLFILES; do
       # This is an archive
       echo $fullname | grep -q lzma
       if [ $? = 1 ]; then 
-        echo $fullname | grep -q bz2
+        echo $fullname | grep -q xz
         if [ $? = 1 ]; then 
           echo $fullname | grep -q gz
           if [ $? = 1 ]; then 
@@ -113,7 +116,7 @@ for file in $ALLFILES; do
             files=`tar -ztf $fullname`
 	  fi
 	else
-          files=`tar -jtf $fullname`
+          files=`xzcat $fullname | tar -tf -`
 	fi
       else
        files=`lzmadec $fullname | tar -tf -`

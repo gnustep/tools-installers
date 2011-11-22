@@ -20,19 +20,16 @@ make_package()
   echo "Cleaning $PACKAGE"
   cd $SOURCES_DIR/build/${PACKAGE}*
   if [ -f config.status ]; then
-    make distclean
+    #make distclean
+    make clean
   fi
-  # FIXME: Need a patch for libxml2 - xmlexports.h
-  if [ $PACKAGE = jpeg ]; then
-    patch -N -p1 < ../../jpeg-6b-mingw.patch
-  elif [ $PACKAGE = zlib ]; then
-    patch -N -p1 < ../../zlib-1.2.3-mingw.patch
-  elif [ $PACKAGE = icu ]; then
+  # FIXME: Need a patch for p11-kit (trying to link an .so file in ./p11-kit)
+  if [ $PACKAGE = icu ]; then
     #patch -N -p1 -i < ../../icu4c-4_6-mingw-gnustep.diff
     cd source
   fi
   echo "Configuring $PACKAGE"
-  if [ $PACKAGE != zlib -a $PACKAGE != pthread ]; then
+  if [ $PACKAGE != zlib ]; then
     echo "./configure --prefix=/mingw $PACKAGE_CONFIG"
     ./configure --prefix=/mingw $PACKAGE_CONFIG
     gsexitstatus=$?
@@ -45,44 +42,23 @@ make_package()
   if [ $PACKAGE = zlib ]; then
     #make -f win32/Makefile.gcc CFLAGS="$CFLAGS"
     make -f win32/Makefile.gcc 
-  elif [ $PACKAGE = pthread ]; then
-    make clean GC
   else
-    make LN_S=cp
+    make
   fi
   gsexitstatus=$?
   if [ $gsexitstatus != 0 ]; then
     gsexitstatus=1
     return
   fi
-  if [ $PACKAGE = zlib ]; then
-    #make -f win32/Makefile.gcc CFLAGS="$CFLAGS" prefix=/mingw install
-    make -f win32/Makefile.gcc prefix=/mingw install
-  elif [ $PACKAGE = pthread ]; then
-    cp pthread.h sched.h semaphore.h /mingw/include
-    cp libpthreadGC2.a /mingw/lib
-    cp libpthreadGC2.a /mingw/lib/libpthread.a
-    cp pthreadGC2.dll /mingw/bin
-  else
-    make install
-  fi
+  make install
+  rm -rf $PACKAGE_DIR/${PACKAGE}
   mkdir -p $PACKAGE_DIR/${PACKAGE}
   if [ $PACKAGE = jpeg ]; then
     mkdir -p $PACKAGE_DIR/${PACKAGE}/bin
     mkdir -p $PACKAGE_DIR/${PACKAGE}/lib
     mkdir -p $PACKAGE_DIR/${PACKAGE}/man
     mkdir -p $PACKAGE_DIR/${PACKAGE}/man1
-    make prefix=$PACKAGE_DIR/${PACKAGE} install
-  elif [ $PACKAGE = zlib ]; then
-    make -f win32/Makefile.gcc prefix=$PACKAGE_DIR/${PACKAGE} install
-  elif [ $PACKAGE = pthread ]; then
-    mkdir -p $PACKAGE_DIR/${PACKAGE}/bin
-    mkdir -p $PACKAGE_DIR/${PACKAGE}/lib
-    mkdir -p $PACKAGE_DIR/${PACKAGE}/include
-    cp pthread.h sched.h semaphore.h $PACKAGE_DIR/${PACKAGE}/include
-    cp libpthreadGC2.a $PACKAGE_DIR/${PACKAGE}/lib
-    cp libpthreadGC2.a $PACKAGE_DIR/${PACKAGE}/lib/libpthread.a
-    cp pthreadGC2.dll $PACKAGE_DIR/${PACKAGE}/bin
+    make DESTDIR=$PACKAGE_DIR/${PACKAGE}/ install
   else
     make DESTDIR=$PACKAGE_DIR/${PACKAGE}/ install
   fi
@@ -96,23 +72,23 @@ make_package()
 # Dependancies
 #
 if [ x$1 != xgnustep ]; then
-  packages="libxml2 jpeg tiff libpng libgpg-error libgcrypt gnutls icu libsndfile libao"
+  packages="libxml2 jpeg tiff libpng libgpg-error libgcrypt p11-kit nettle gnutls icu libsndfile libao"
   if [ x$1 != x ]; then
     packages=$*
   fi
   for name in $packages; do
     # Notes:
     PACKAGE=$name
-    PACKAGE_CONFIG=
-    if [ $PACKAGE = pthread ]; then
-      PACKAGE_CONFIG=--with-threads=win32
-    fi
+    PACKAGE_CONFIG="--enable-shared"
     if [ $PACKAGE = icu ]; then
-      PACKAGE_CONFIG="--libdir=/mingw/bin --disable-strict"
+      PACKAGE_CONFIG="$PACKAGE_CONFIG --libdir=/mingw/bin --disable-strict"
+    fi
+    if [ $PACKAGE = gnutls ]; then
+      PACKAGE_CONFIG="$PACKAGE_CONFIG --with-libgcrypt --disable-guile"
     fi
     if [ $PACKAGE = libsndfile ]; then
-      #PACKAGE_CONFIG="--disable-alsa --disable-jack --disable-sqlite --disable-shave"
-      PACKAGE_CONFIG=--disable-shave
+      #PACKAGE_CONFIG="$PACKAGE_CONFIG --disable-alsa --disable-jack --disable-sqlite --disable-shave"
+      PACKAGE_CONFIG="$PACKAGE_CONFIG --disable-shave"
     fi
     make_package
   done

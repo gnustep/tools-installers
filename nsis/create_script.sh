@@ -24,11 +24,11 @@
 # full creation script. Heavy editing is necessary afterwards.
 #
 
-# Packages. The -m before the name means it goes in the mingw subdir
-SYSTEM_FILES="mingw-get Console -m libopenssl-1.0.0-1-msys-1.0.13-dev -m libopenssl-1.0.0-1-msys-1.0.13-dll -m openssl -m libxml2 -m jpeg -m libpng -m tiff -m libgpg-error -m libgcrypt -m gnutls -m icu -m libao -m libsndfile"
+# Packages. The -s before the name means it goes in the msys subdir
+SYSTEM_FILES="libopenssl-1.0.0-1-msys-1.0.13-dev libopenssl-1.0.0-1-msys-1.0.13-dll openssl libxml2 jpeg libpng tiff libgpg-error libgcrypt p11-kit gnutls icu libao libsndfile"
 GSTEP_FILES="gnustep-make libffi gnustep-objc gnustep-base gnustep-gui gnustep-back WinUXTheme"
-CAIRO_FILES="-m freetype -m fontconfig -m pixman -m cairo gnustep-cairo"
-DEV_FILES="svn -m glib -m pkg-config"
+CAIRO_FILES="freetype fontconfig pixman cairo gnustep-cairo"
+DEV_FILES="-s svn glib pkg-config"
 
 # Pick the package we are making
 PACKAGES=
@@ -50,13 +50,13 @@ if [ x$1 = xdev  ]; then
   PACKAGES=$DEV_FILES
   INSTALLER="gnustep-devel"
 fi
-if [ x$1 = xlibxml2  ]; then
-  PACKAGES="-m libxml2"
-  INSTALLER="gnustep-libxml2"
-fi
 if [ x$1 = xlist  ]; then
   PACKAGES=`cat $2`
   INSTALLER="gnustep-`basename $2 _names.list`"
+fi
+if [ x$1 = xfile  ]; then
+  PACKAGES=$2
+  INSTALLER="gnustep-file"
 fi
 if [ x"$INSTALLER" = x ]; then
   echo No package named. Use one of: system, core, dev
@@ -69,13 +69,13 @@ TEMPFILE=temp-nsi
 rm -f files-not-added.txt
 # Create the file lists
 for package in $PACKAGES; do
-  if test $package = -m; then
-    args="$ARGS -m"
+  if test $package = -s; then
+    args="$ARGS -s"
     continue;
   fi
   echo $package |  grep -q msys
   if [ $? = 0 ]; then
-    args="$ARGS --msys"
+    args="$ARGS -s"
   fi
   ./file_lists.sh $args $package
   args=$ARGS
@@ -88,7 +88,7 @@ let section=1
 rm -f $TEMPFILE
 echo " " > $TEMPFILE
 for package in $PACKAGES; do
-  if test $package = -m; then
+  if test $package = -s; then
     continue;
   fi
   package=`basename $package`
@@ -107,7 +107,7 @@ done
 echo "" >> $TEMPFILE
 echo "Section Uninstall" >> $TEMPFILE
 for package in $PACKAGES; do
-  if test $package = -m; then
+  if test $package = -s; then
     continue;
   fi
   package=`basename $package`
@@ -125,7 +125,7 @@ REV_PACKAGES=`echo $sort_list`
 
 echo "" >> $TEMPFILE
 for package in $REV_PACKAGES; do
-  if test $package = -m; then
+  if test $package = -s; then
     continue;
   fi
   package=`basename $package`
@@ -139,7 +139,7 @@ mv $TEMPFILE $OUTPATH
 
 # Remove the temporary files
 for package in $PACKAGES; do
-  if test $package = -m; then
+  if test $package = -s; then
     continue;
   fi
   package=`basename $package`
