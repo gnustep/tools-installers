@@ -36,7 +36,7 @@ PACKAGEDIR=$SRCDIR/packages/
 INSTALLPKG=/mingw/var/cache/mingw-get/packages/
 # Location where the MinGW packages are installed (for when we
 # compile the nsis script).
-INSTALLDIR="C:\\gnustepdev2"
+INSTALLDIR="C:\\gnustepdev"
 # Extra install dir to add on to standard INSTALLDIR
 EXTRADIR=
 # Remove all the doc files

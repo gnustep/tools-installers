@@ -83,17 +83,11 @@ http://www.gtk.org/download-windows.html
 
 Cairo Source:
 =============
-http://savannah.inetbridge.net/freetype/
-  freetype 2.3.12
-http://fontconfig.org/release/
+http://freetype.sourceforge.net/index2.html
+  freetype 2.4.8
+http://www.freedesktop.org/software/fontconfig/release/
   fontconfig 2.8.0
 http://www.cairographics.org/releases/
-  pixman 0.18.2
-  cairo 1.8.10
-
-old?:
-http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies
-fontconfig-2.4.2-tml-20071015.zip
-
-
+  pixman 0.24.0
+  cairo 1.10.2
 
