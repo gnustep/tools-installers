@@ -1,3 +1,9 @@
+2012-07-14  Adam Fedor <fedor@gnu.org>
+
+	* gnustep-msys-system-0.30.0
+	* gnustep-core-0.30.0
+	Add -fno-omit-frame-pointer to fix crashes on XP and earlier
+
 2012-02-17  Adam Fedor <fedor@gnu.org>
 
 	* gnustep-core-0.29.1

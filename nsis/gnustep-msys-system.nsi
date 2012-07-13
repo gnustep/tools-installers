@@ -9,7 +9,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GNUstep MSYS Windows System"
-!define PRODUCT_VERSION "0.29.0"
+!define PRODUCT_VERSION "0.30.0"
 !define PRODUCT_PUBLISHER "GNUstep"
 !define PRODUCT_WEB_SITE "http://www.gnustep.org"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GNUstep"
@@ -6226,7 +6226,7 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC032}   "libopenssl-1.0.0-1-msys-1.0.13-dll" 
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC033}   "openssl" 
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC034}   "libxml2" 
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC035}   "jpeg" 
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC035}   "jpeg 6b" 
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC036}   "libpng" 
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC037}   "tiff" 
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC038}   "libgpg-error" 

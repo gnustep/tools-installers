@@ -31,7 +31,13 @@ make_package()
   echo "Configuring $PACKAGE"
   if [ $PACKAGE != zlib ]; then
     echo "./configure --prefix=/mingw $PACKAGE_CONFIG"
-    ./configure --prefix=/mingw $PACKAGE_CONFIG
+    if [ $PACKAGE = jpeg ]; then
+      # Need this as gcc 4.6 screws up longjmp when there is no frame pointer
+      # http://gcc.gnu.org/ml/gcc/2011-10/msg00324.html
+      CFLAGS="-g -O2 -fno-omit-frame-pointer" ./configure --prefix=/mingw $PACKAGE_CONFIG
+    else
+      ./configure --prefix=/mingw $PACKAGE_CONFIG
+    fi
     gsexitstatus=$?
     if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
       gsexitstatus=1
@@ -196,7 +202,7 @@ if [ x$2 = x -o x$2 = xall -o x$2 = xmake ]; then
   echo "========= Making GNUstep Make ========="
   cd $SOURCES_DIR/gstep
   #rm -rf gnustep-make-*
-  tar -zxf $GNUSTEP_DIR/gnustep-make-*tar.gz
+  #tar -zxf $GNUSTEP_DIR/gnustep-make-*tar.gz
   cd gnustep-make-*
   ./configure --prefix=/GNUstep -with-layout=gnustep --with-config-file=/GNUstep/GNUstep.conf
   gsexitstatus=$?
@@ -253,13 +259,13 @@ if [ x$2 = x -o x$2 = xall -o x$2 = xgui ]; then
   if [ -f config.status ]; then
     make distclean
   fi
-  ./configure
+  ./configure --with-include-flags=-fno-omit-frame-pointer
   gsexitstatus=$?
   if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
     gsexitstatus=1
     exit 1
   fi
-  make install
+  make messages=yes install
   gsexitstatus=$?
   if [ $gsexitstatus != 0 ]; then
     gsexitstatus=1
