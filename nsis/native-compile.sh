@@ -30,18 +30,19 @@ make_package()
   fi
   echo "Configuring $PACKAGE"
   if [ $PACKAGE != zlib ]; then
-    echo "./configure --prefix=/mingw $PACKAGE_CONFIG"
     if [ $PACKAGE = jpeg ]; then
       # Need this as gcc 4.6 screws up longjmp when there is no frame pointer
       # http://gcc.gnu.org/ml/gcc/2011-10/msg00324.html
       CFLAGS="-g -O2 -fno-omit-frame-pointer" ./configure --prefix=/mingw $PACKAGE_CONFIG
+    elif [ $PACKAGE = mman ]; then
+      ./configure --prefix=/mingw 
     else
       ./configure --prefix=/mingw $PACKAGE_CONFIG
-    fi
-    gsexitstatus=$?
-    if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
-      gsexitstatus=1
-      return
+      gsexitstatus=$?
+      if [ "$gsexitstatus" != 0 -o \! -f config.status ]; then
+        gsexitstatus=1
+        return
+      fi
     fi
   fi
   echo "Making $PACKAGE"
@@ -175,8 +176,8 @@ fi
 if [ x$2 = xall -o x$2 = xobjc ]; then
   echo "========= Making objc  ========="
   cd $SOURCES_DIR/gstep
-  tar -zxf $GNUSTEP_DIR/gnustep-objc-*tar.gz
-  cd $SOURCES_DIR/gstep/gnustep-objc-*
+  #tar -zxf $GNUSTEP_DIR/gnustep-objc-*tar.gz
+  cd $SOURCES_DIR/gstep-current/libobjc2*
   make clean
   make
   gsexitstatus=$?
@@ -186,12 +187,12 @@ if [ x$2 = xall -o x$2 = xobjc ]; then
   fi
   make install
   # strip the dll
-  strip /GNUstep/System/Tools/objc-1.dll
-  rm -rf $PACKAGE_DIR/gnustep-objc
-  mkdir -p $PACKAGE_DIR/gnustep-objc/GNUstep/System/Library/Libraries
-  mkdir -p $PACKAGE_DIR/gnustep-objc/GNUstep/System/Library/Headers
-  mkdir -p $PACKAGE_DIR/gnustep-objc/GNUstep/System/Tools
-  make DESTDIR=$PACKAGE_DIR/gnustep-objc install
+  #strip /GNUstep/System/Tools/objc-1.dll
+  rm -rf $PACKAGE_DIR/gnustep-objc2
+  mkdir -p $PACKAGE_DIR/gnustep-objc2/GNUstep/System/Library/Libraries
+  mkdir -p $PACKAGE_DIR/gnustep-objc2/GNUstep/System/Library/Headers
+  mkdir -p $PACKAGE_DIR/gnustep-objc2/GNUstep/System/Tools
+  make DESTDIR=$PACKAGE_DIR/gnustep-objc2 install
 
 fi
 

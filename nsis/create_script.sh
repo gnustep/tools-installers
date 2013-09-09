@@ -25,9 +25,9 @@
 #
 
 # Packages. The -s before the name means it goes in the msys subdir
-SYSTEM_FILES="libopenssl-1.0.0-1-msys-1.0.13-dev libopenssl-1.0.0-1-msys-1.0.13-dll openssl libxml2 jpeg libpng tiff libgpg-error libgcrypt p11-kit gnutls icu libao libsndfile"
+SYSTEM_FILES="libopenssl-1.0.0-1-msys-1.0.13-dev libopenssl-1.0.0-1-msys-1.0.13-dll openssl libxml2 jpeg libpng tiff libgpg-error libgcrypt p11-kit gnutls icu libao libsndfile mman"
 GSTEP_FILES="gnustep-make libffi gnustep-objc gnustep-base gnustep-gui gnustep-back WinUXTheme"
-CAIRO_FILES="freetype fontconfig pixman cairo gnustep-cairo"
+CAIRO_FILES="expat freetype fontconfig pixman cairo gnustep-cairo"
 DEV_FILES="-s svn glib pkg-config"
 
 # Pick the package we are making

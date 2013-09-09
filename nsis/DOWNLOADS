@@ -25,11 +25,12 @@ msys-console
 mingw32-libz
 
 # Other packages
-openssl
-libopenssl
+msys-openssl
+msys-libopenssl
+#http://sourceforge.net/projects/mingw/files/MSYS/Extension/openssl/
 
 # Compiled from source
-libxml2 jpeg tiff libpng libgpg-error libgcrypt p11-kit nettle gnutls icu libsndfile labao
+libxml2 jpeg tiff libpng libgpg-error libgcrypt p11-kit nettle gnutls icu libsndfile libao mman
 
 From Source:
 ============
@@ -47,6 +48,9 @@ libicu:
 http://download.icu-project.org/files/icu4c/4.6/icu4c-4_6-src.zip
 http://devs.openttd.org/~terkhen/libicu/libicu_4_6_mingw32.diff
 http://devs.openttd.org/~terkhen/libicu/libicu_reduce_icudata_size.diff
+
+mman: (for libobjc2)
+svn checkout http://mman-win32.googlecode.com/svn/trunk/ mman-win32-read-only
 
 Devel Package
 =============
@@ -76,10 +80,7 @@ WinUXTheme
 
 Cairo Precompiled:
 ===================
-http://www.gtk.org/download-windows.html
-  freetype
-  fontconfig
-  cairo
+mingw32-libexpat
 
 Cairo Source:
 =============

@@ -142,7 +142,7 @@ if [ x$1 = x -o x$1 = xall -o x$1 = xbase ]; then
     gsexitstatus=1
     exit 1
   fi
-  make install
+  make debug=yes install
   gsexitstatus=$?
   if [ $gsexitstatus != 0 ]; then
     gsexitstatus=1
@@ -174,7 +174,7 @@ if [ x$1 = x -o x$1 = xall -o x$1 = xgui ]; then
     gsexitstatus=1
     exit 1
   fi
-  make install
+  make debug=yes install
   gsexitstatus=$?
   if [ $gsexitstatus != 0 ]; then
     gsexitstatus=1
@@ -206,7 +206,7 @@ if [ x$1 = x -o x$1 = xall -o x$1 = xback ]; then
     gsexitstatus=1
     exit 1
   fi
-  make install
+  make debug=yes install
   gsexitstatus=$?
   if [ $gsexitstatus != 0 ]; then
     gsexitstatus=1
@@ -227,8 +227,8 @@ fi
 if [ x$1 = xcairo ]; then
 
   echo "========= Making GNUstep Back (Cairo)  ========="
-  cd $SOURCES_DIR/gstep
-  cd gnustep-cairo
+  cd $SOURCES_DIR/gstep-current
+  cd cairo-*
   if [ -f config.status ]; then
     make distclean
   fi
@@ -238,7 +238,7 @@ if [ x$1 = xcairo ]; then
     gsexitstatus=1
     exit 1
   fi
-  make install
+  make debug=yes install
   gsexitstatus=$?
   if [ $gsexitstatus != 0 ]; then
     gsexitstatus=1
