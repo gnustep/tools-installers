@@ -8,7 +8,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GNUstep Windows Cairo"
-!define PRODUCT_VERSION "0.31.0"
+!define PRODUCT_VERSION "0.33.0"
 !define PRODUCT_PUBLISHER "GNUstep"
 !define PRODUCT_WEB_SITE "http://www.gnustep.org"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GNUstep"
@@ -565,7 +565,7 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC03} "fontconfig 2.6.0"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC04} "pixman 0.13.2"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC05} "cairo 1.8.6"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC06} "GNUstep Cairo Backend Aug 2012"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC06} "GNUstep Cairo Backend 0.23.0.Dec2013"
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 Section -AdditionalIcons

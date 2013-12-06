@@ -228,7 +228,8 @@ if [ x$1 = xcairo ]; then
 
   echo "========= Making GNUstep Back (Cairo)  ========="
   cd $SOURCES_DIR/gstep-current
-  cd cairo-*
+  #cd cairo-testplant
+  cd cairo-trunk
   if [ -f config.status ]; then
     make distclean
   fi

@@ -143,7 +143,7 @@ if [ x$2 = xall -o x$2 = xlibffi ]; then
   echo "========= Making libffi ========="
   cd $SOURCES_DIR/gstep
   #rm -rf libffi-*
-  #tar -zxf $GNUSTEP_DIR/libffi-*tar.gz
+  tar -zxf $GNUSTEP_DIR/libffi-*tar.gz
   cd $SOURCES_DIR/gstep/libffi-*
   #patch -N -p0 < ../libffi-includes.patch
   if [ -f config.status ]; then
