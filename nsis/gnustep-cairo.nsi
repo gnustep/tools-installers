@@ -8,7 +8,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GNUstep Windows Cairo"
-!define PRODUCT_VERSION "0.33.0"
+!define PRODUCT_VERSION "0.34.0"
 !define PRODUCT_PUBLISHER "GNUstep"
 !define PRODUCT_WEB_SITE "http://www.gnustep.org"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GNUstep"
@@ -310,16 +310,16 @@ SectionEnd
 Section "gnustep-cairo" SEC06
   SectionIn RO
   ; Files from gnustep-cairo
-  SetOutPath "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle"
-  File "C:\gnustepdev\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\libgnustep-cairo-023.dll"
-  SetOutPath "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\Resources\English.lproj"
-  File "C:\gnustepdev\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\Resources\English.lproj\nfontFaceNames.strings"
-  SetOutPath "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\Resources"
-  File "C:\gnustepdev\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\Resources\Info-gnustep.plist"
-  SetOutPath "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\Resources\Swedish.lproj"
-  File "C:\gnustepdev\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\Resources\Swedish.lproj\nfontFaceNames.strings"
-  SetOutPath "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle"
-  File "C:\gnustepdev\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\stamp.make"
+  SetOutPath "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle"
+  File "C:\gnustepdev\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\libgnustep-cairo-024.dll"
+  SetOutPath "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\Resources\English.lproj"
+  File "C:\gnustepdev\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\Resources\English.lproj\nfontFaceNames.strings"
+  SetOutPath "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\Resources"
+  File "C:\gnustepdev\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\Resources\Info-gnustep.plist"
+  SetOutPath "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\Resources\Swedish.lproj"
+  File "C:\gnustepdev\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\Resources\Swedish.lproj\nfontFaceNames.strings"
+  SetOutPath "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle"
+  File "C:\gnustepdev\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\stamp.make"
 SectionEnd
 
 
@@ -513,18 +513,18 @@ Section Uninstall
   Delete "$INSTDIR\bin\libcairo-2.dll"
 
   ; Delete list for gnustep-cairo
-  Delete "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\stamp.make"
-  Delete "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\Resources\Swedish.lproj\nfontFaceNames.strings"
-  Delete "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\Resources\Info-gnustep.plist"
-  Delete "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\Resources\English.lproj\nfontFaceNames.strings"
-  Delete "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\libgnustep-cairo-023.dll"
+  Delete "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\stamp.make"
+  Delete "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\Resources\Swedish.lproj\nfontFaceNames.strings"
+  Delete "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\Resources\Info-gnustep.plist"
+  Delete "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\Resources\English.lproj\nfontFaceNames.strings"
+  Delete "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\libgnustep-cairo-024.dll"
 
 
   ; rmdir list for gnustep-cairo
-  RMDir "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\Resources\Swedish.lproj"
-  RMDir "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\Resources\English.lproj"
-  RMDir "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle\Resources"
-  RMDir "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-023.bundle"
+  RMDir "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\Resources\Swedish.lproj"
+  RMDir "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\Resources\English.lproj"
+  RMDir "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle\Resources"
+  RMDir "$INSTDIR\GNUstep\System\Library\Bundles\libgnustep-cairo-024.bundle"
 
   ; rmdir list for cairo
   RMDir "$INSTDIR\share\gtk-doc\html\cairo"
@@ -565,7 +565,7 @@ SectionEnd
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC03} "fontconfig 2.6.0"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC04} "pixman 0.13.2"
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC05} "cairo 1.8.6"
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC06} "GNUstep Cairo Backend 0.23.0.Dec2013"
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC06} "GNUstep Cairo Backend 0.24.0"
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 Section -AdditionalIcons
