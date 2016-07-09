@@ -10,7 +10,7 @@
 #   xxx - compile specific package
 
 # Location of sources, packages, etc.  Change to suit
-HOME_DIR=/h/Source/nsis
+HOME_DIR=/z/Source/nsis
 PACKAGE_DIR=$HOME_DIR/packages
 SOURCES_DIR=$HOME_DIR/sources
 GNUSTEP_DIR=$HOME_DIR/sources/gstep/current
@@ -97,6 +97,9 @@ if [ x$1 != xgnustep ]; then
       #PACKAGE_CONFIG="$PACKAGE_CONFIG --disable-alsa --disable-jack --disable-sqlite --disable-shave"
       PACKAGE_CONFIG="$PACKAGE_CONFIG --disable-shave"
     fi
+    if [ $PACKAGE = fontconfig ]; then
+      PACKAGE_CONFIG="$PACKAGE_CONFIG --enable-libxml2"
+    fi
     make_package
   done
 
@@ -145,7 +148,7 @@ if [ x$2 = xall -o x$2 = xlibffi ]; then
   #rm -rf libffi-*
   tar -zxf $GNUSTEP_DIR/libffi-*tar.gz
   cd $SOURCES_DIR/gstep/libffi-*
-  patch -N -p0 < ../libffi-includes.patch
+  patch -N -p0 < $HOME_DIR/libffi-includes*.patch
   if [ -f config.status ]; then
     make distclean
   fi
@@ -163,6 +166,7 @@ if [ x$2 = xall -o x$2 = xlibffi ]; then
   fi
   make install
   mv /GNUstep/System/Library/bin/*dll /GNUstep/System/Tools
+  mv /GNUstep/System/Library/Libraries/libffi-3.0.13/include/* /GNUstep/System/Library/Headers
   rm -rf $PACKAGE_DIR/libffi
   mkdir -p $PACKAGE_DIR/libffi
   mkdir -p $PACKAGE_DIR/libffi/GNUstep/System/Tools

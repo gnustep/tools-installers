@@ -5,7 +5,7 @@ CLEAN=no
 # Location of sources, packages, etc.  Change to suit
 HOME_DIR=/h/Source/nsis
 PACKAGE_DIR=$HOME_DIR/packages
-SOURCES_DIR=$HOME_DIR/sources
+SOURCES_DIR=$HOME_DIR/sources/gstep-current
 
 #
 # GNUstep
@@ -18,10 +18,7 @@ export GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
 #
 if [ x$1 = xall -o x$1 = xmake ]; then
   echo "========= Making GNUstep Make ========="
-  cd $SOURCES_DIR/gstep-current
-  #rm -rf gnustep-make-*
-  #tar -zxf $GNUSTEP_DIR/gnustep-make-*tar.gz
-  cd make
+  cd $SOURCES_DIR/make
   if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
@@ -39,11 +36,8 @@ if [ x$1 = xall -o x$1 = xlibffi ]; then
 # libffi
 #
   echo "========= Making libffi ========="
-  cd $SOURCES_DIR/gstep
-  #rm -rf libffi-*
-  #tar -zxf /Local/Software/gstep/startup/sources/libffi-*tar.gz
-  cd $SOURCES_DIR/gstep/libffi-*
-  patch -N -p0 < ../libffi-includes.patch
+  cd $SOURCES_DIR/libffi-3*
+  patch -N -p0 < $HOME_DIR/libffi-includes*.patch
   if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
@@ -77,7 +71,7 @@ fi
 #
 if [ x$1 = x -o x$1 = xall -o x$1 = xobjc ]; then
   echo "========= Making objc  ========="
-  cd $SOURCES_DIR/gstep-current/libobjc2*
+  cd $SOURCES_DIR/libobjc2*
   if [ $CLEAN = yes ]; then
     make clean
   fi
@@ -103,10 +97,7 @@ fi
 #
 if [ x$1 = x -o x$1 = xall -o x$1 = xmake ]; then
   echo "========= Making GNUstep Make ========="
-  cd $SOURCES_DIR/gstep-current
-  #rm -rf gnustep-make-*
-  #tar -zxf $GNUSTEP_DIR/gnustep-make-*tar.gz
-  cd make
+  cd $SOURCES_DIR/make
   if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
@@ -129,10 +120,7 @@ fi
 #
 if [ x$1 = x -o x$1 = xall -o x$1 = xbase ]; then
   echo "========= Making GNUstep Base  ========="
-  cd $SOURCES_DIR/gstep-current
-  #rm -rf gnustep-base-*
-  #tar -zxf $GNUSTEP_DIR/gnustep-base-*tar.gz
-  cd base
+  cd $SOURCES_DIR/base
   if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
@@ -161,10 +149,7 @@ fi
 #
 if [ x$1 = x -o x$1 = xall -o x$1 = xgui ]; then
   echo "========= Making GNUstep GUI  ========="
-  cd $SOURCES_DIR/gstep-current
-  #rm -rf gnustep-gui-*
-  #tar -zxf $GNUSTEP_DIR/gnustep-gui-*tar.gz
-  cd gui
+  cd $SOURCES_DIR/gui
   if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
@@ -193,10 +178,7 @@ fi
 #
 if [ x$1 = x -o x$1 = xall -o x$1 = xback ]; then
   echo "========= Making GNUstep Back  ========="
-  cd $SOURCES_DIR/gstep-current
-  #rm -rf gnustep-back-*
-  #tar -zxf $GNUSTEP_DIR/gnustep-back-*tar.gz
-  cd back
+  cd $SOURCES_DIR/back
   if [ -f config.status -a $CLEAN = yes ]; then
     make distclean
   fi
@@ -227,9 +209,7 @@ fi
 if [ x$1 = xcairo ]; then
 
   echo "========= Making GNUstep Back (Cairo)  ========="
-  cd $SOURCES_DIR/gstep-current
-  #cd cairo-testplant
-  cd cairo-trunk
+  cd $SOURCES_DIR/cairo*
   if [ -f config.status ]; then
     make distclean
   fi
@@ -256,7 +236,7 @@ fi
 if [ x$1 = x -o x$1 = xall -o x$1 = xtheme ]; then
 
   echo "========= Making GNUstep WinUXTheme  ========="
-  cd $SOURCES_DIR/gstep-current
+  cd $SOURCES_DIR
   cd WinUXTheme
   if [ -f config.status -a $CLEAN = yes ]; then
     make distclean

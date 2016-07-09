@@ -72,7 +72,7 @@ GNUstep core package:
 ====================
 gnustep-make
 libffi
-gnustep-objc
+libobjc2 (Only 1.5.1 compiles currently)
 gnustep-base
 gnustep-gui
 gnustep-back
